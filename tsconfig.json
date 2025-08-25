@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "module": "nodenext",
+    "typeRoots": ["./types"],
+    "target": "es6",
+    "esModuleInterop": true
+  },
+  "ts-node": {
+    "esm": true
+  }
+}

@@ -1,0 +1,37 @@
+### Hello Friend!
+GET http://localhost:3000/
+ 
+### Get all Users
+GET http://localhost:3000/auth/users
+
+### Register User
+POST http://localhost:3000/auth/sign-up
+Content-Type: application/json
+
+{
+    "username": "Pablito123",
+    "email": "pablo321@outlook.com",
+    "password": "12345678"
+}
+
+### Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "pablo321@outlook.com",
+    "password": "12345678"
+}
+
+### Get Protected Route
+GET http://localhost:3000/auth/protected
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5N2U5NTgwZi0wN2JmLTQzMzItOTQ2Zi1lM2QxYjEyZjAxOGUiLCJlbWFpbCI6InBhYmxvMzIxQG91dGxvb2suY29tIiwiZXhwIjoxNzU2NzYwMTkxfQ==.5v2mPPUUuwC9UVfq+GATgW54nhZDsXJP3okg6FSeQd8=
+
+### Refresh access token
+POST http://localhost:3000/auth/refresh
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5N2U5NTgwZi0wN2JmLTQzMzItOTQ2Zi1lM2QxYjEyZjAxOGUiLCJlbWFpbCI6InBhYmxvMzIxQG91dGxvb2suY29tIiwiZXhwIjoxNzU2MjQxNzM1fQ==.h+nDrVPs0UkfDwOMln56PshMpreVR8QYJpOdqO7jmZY=
+
+### Get Session
+GET http://localhost:3000/auth/session
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5N2U5NTgwZi0wN2JmLTQzMzItOTQ2Zi1lM2QxYjEyZjAxOGUiLCJlbWFpbCI6InBhYmxvMzIxQG91dGxvb2suY29tIiwiZXhwIjoxNzU2NzYwMTkxfQ==.5v2mPPUUuwC9UVfq+GATgW54nhZDsXJP3okg6FSeQd8=
+
