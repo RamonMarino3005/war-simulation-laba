@@ -21,6 +21,13 @@ export const createAuthRouter = (authService: AuthService) => {
   //   router.get("/login", authController.getLogin);
   router.post("/login", validateLogin, authController.login);
 
+  router.post(
+    "/delete",
+    extractToken,
+    extractUsers(authService),
+    authController.deleteUser
+  );
+
   router.post("/refresh", extractToken, authController.refresh);
 
   router.get("/session", extractToken, authController.getSession);

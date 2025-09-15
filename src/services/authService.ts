@@ -18,6 +18,7 @@ interface UserModel {
   findByEmail(email: string): Promise<User>;
   findByUsername(username: string): Promise<User>;
   createUser(user: Omit<User, "id">): Promise<User>;
+  deleteUser(userId: string): Promise<boolean>;
 }
 
 interface RefreshTokenRepository {
@@ -62,6 +63,7 @@ export class AuthService {
     if (existingUsername) throw new Error("Username is taken");
 
     const hashed = await bcrypt.hash(password, 10);
+
     return await this.userModel.createUser({
       username,
       email,
@@ -89,6 +91,10 @@ export class AuthService {
     this.refreshStorage.save(user.id, refreshToken);
 
     return { accessToken, refreshToken };
+  }
+
+  async delete({ userId }: { userId: string }) {
+    return await this.userModel.deleteUser(userId);
   }
 
   async verifyToken({ token }: { token: string }) {

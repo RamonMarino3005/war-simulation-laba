@@ -53,8 +53,18 @@ export class AuthController {
     }
   };
 
+  deleteUser = async (req: Request, res: Response) => {
+    const user = req.user;
+
+    const result = await this.authService.delete({ userId: user.userId });
+
+    console.log("Result:", result);
+    res.status(200).json(result);
+  };
+
   protectedRoute = async (req: Request, res: Response) => {
     const user = req.user;
+
     res.json({ message: "Access granted to protected route", user });
   };
 
@@ -64,7 +74,7 @@ export class AuthController {
     const session = await this.authService.verifyToken({ token });
 
     res.json({
-      status: session ? "authentictaed" : "unauthenticated",
+      status: session ? "authenticated" : "unauthenticated",
       session,
     });
   };

@@ -44,4 +44,14 @@ export class UserModel {
     const users = this.readUsers();
     return users.find((u) => u.username === username);
   }
+
+  async deleteUser(userId: string) {
+    const users = this.readUsers();
+
+    const newList = users.filter((user) => userId !== user.id);
+
+    this.writeUsers(newList);
+
+    return true;
+  }
 }
