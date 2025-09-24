@@ -19,7 +19,10 @@ export class AuthController {
     const newUser = req.validatedBody as UserFields;
 
     try {
-      const user = await this.authService.register(newUser);
+      const user = await this.authService.register({
+        ...newUser,
+        role: "user",
+      });
       res.status(201).json(user);
     } catch (err: any) {
       res.status(400).json({ error: err.message });
