@@ -98,6 +98,10 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
+  async logout({ userId }: { userId: string }) {
+    return await this.refreshStorage.revoke(userId, "");
+  }
+
   async delete({ userId }: { userId: string }) {
     return await this.userModel.deleteUser(userId);
   }

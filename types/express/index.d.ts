@@ -1,7 +1,7 @@
 declare namespace Express {
   interface Request {
     validatedBody: object;
-    user?: {
+    session?: {
       userId: string;
       email: string;
     };

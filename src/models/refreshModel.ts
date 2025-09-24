@@ -32,14 +32,19 @@ export class RefreshStorage {
 
   async exists(userId: string, token: string): Promise<boolean> {
     const tokensInStorage = this.readTokens();
-    const foundToken = tokensInStorage.find((tok) => tok.token === token);
+    const foundToken = tokensInStorage.find(
+      (tok) => tok.token === token && tok.userId === userId
+    );
 
     return !!foundToken;
   }
 
   async revoke(userId: string, token: string) {
     const tokensInStorage = this.readTokens();
-    const filteredTokens = tokensInStorage.filter((tok) => tok.token === token);
+
+    const filteredTokens = tokensInStorage.filter(
+      (tok) => tok.userId !== userId
+    );
 
     this.writeTokens(filteredTokens);
   }

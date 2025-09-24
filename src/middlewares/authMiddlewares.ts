@@ -7,7 +7,7 @@ import {
 import { AuthService } from "../services/authService.js";
 import { UserCredentials, UserFields } from "types/userTypes.js";
 
-export const extractUsers = (authService: AuthService) => {
+export const getSession = (authService: AuthService) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const token = req.token;
 
@@ -16,7 +16,7 @@ export const extractUsers = (authService: AuthService) => {
     const payload = await authService.verifyToken({ token });
     if (!payload) return res.status(400).json({ error: "Invalid token" });
 
-    req.user = { userId: payload.userId, email: payload.email };
+    req.session = { userId: payload.userId, email: payload.email };
 
     next();
   };

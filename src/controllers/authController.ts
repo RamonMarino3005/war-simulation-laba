@@ -9,7 +9,6 @@ export class AuthController {
     this.authService = authService;
   }
 
-  // Debugging purposes.
   getUsers = async (req: Request, res: Response) => {
     const users = await this.authService.getUsers();
     res.status(200).json(users);
@@ -56,18 +55,25 @@ export class AuthController {
     }
   };
 
-  deleteUser = async (req: Request, res: Response) => {
-    const user = req.user;
+  logout = async (req: Request, res: Response) => {
+    const session = req.session;
 
-    const result = await this.authService.delete({ userId: user.userId });
+    await this.authService.logout({ userId: session.userId });
+    res.status(204).json({ message: "Logged out successfully" });
+  };
+
+  deleteUser = async (req: Request, res: Response) => {
+    const session = req.session;
+
+    const result = await this.authService.delete({ userId: session.userId });
 
     res.status(200).json(result);
   };
 
   protectedRoute = async (req: Request, res: Response) => {
-    const user = req.user;
+    const session = req.session;
 
-    res.json({ message: "Access granted to protected route", user });
+    res.json({ message: "Access granted to protected route", session });
   };
 
   getSession = async (req: Request, res: Response) => {

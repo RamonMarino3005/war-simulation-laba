@@ -3,7 +3,7 @@ import { AuthController } from "../controllers/authController.js";
 import { AuthService } from "../services/authService.js";
 import {
   extractToken,
-  extractUsers,
+  getSession,
   validateLogin,
   validateRegister,
 } from "../middlewares/authMiddlewares.js";
@@ -21,10 +21,18 @@ export const createAuthRouter = (authService: AuthService) => {
   //   router.get("/login", authController.getLogin);
   router.post("/login", validateLogin, authController.login);
 
+  //   router.get("/logout", authController.getLogout);
+  router.post(
+    "/logout",
+    extractToken,
+    getSession(authService),
+    authController.logout
+  );
+
   router.post(
     "/delete",
     extractToken,
-    extractUsers(authService),
+    getSession(authService),
     authController.deleteUser
   );
 
@@ -35,7 +43,7 @@ export const createAuthRouter = (authService: AuthService) => {
   router.get(
     "/protected",
     extractToken,
-    extractUsers(authService),
+    getSession(authService),
     authController.protectedRoute
   );
 
