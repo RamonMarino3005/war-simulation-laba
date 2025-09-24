@@ -1,6 +1,12 @@
 // authService.ts
 import bcrypt from "bcrypt";
-import { User } from "types/userTypes.js";
+import {
+  PublicUser,
+  StoredUser,
+  User,
+  UserCredentials,
+  UserFields,
+} from "types/userTypes.js";
 
 export type Payload = {
   userId: string;
@@ -14,10 +20,10 @@ interface TokenProvider {
 }
 
 interface UserModel {
-  getUsers(): Promise<User[]>;
-  findByEmail(email: string): Promise<User>;
-  findByUsername(username: string): Promise<User>;
-  createUser(user: Omit<User, "id">): Promise<User>;
+  getUsers(): Promise<PublicUser[]>;
+  findByEmail(email: string): Promise<StoredUser | null>;
+  findByUsername(username: string): Promise<StoredUser | null>;
+  createUser(user: UserFields): Promise<PublicUser>;
   deleteUser(userId: string): Promise<boolean>;
 }
 
@@ -46,49 +52,48 @@ export class AuthService {
     return this.userModel.getUsers();
   }
 
-  async register({
-    username,
-    email,
-    password,
-  }: {
-    username: string;
-    email: string;
-    password: string;
-  }) {
-    const existingEmail = await this.userModel.findByEmail(email);
+  async register(newUser: UserFields) {
+    const existingEmail = await this.userModel.findByEmail(newUser.email);
+
     if (existingEmail)
       throw new Error("An account with this email already exists");
 
-    const existingUsername = await this.userModel.findByUsername(username);
+    const existingUsername = await this.userModel.findByUsername(
+      newUser.username
+    );
     if (existingUsername) throw new Error("Username is taken");
 
-    const hashed = await bcrypt.hash(password, 10);
+    const hashed = await bcrypt.hash(newUser.password, 10);
 
     return await this.userModel.createUser({
-      username,
-      email,
+      username: newUser.username,
+      email: newUser.email,
       password: hashed,
+      role: newUser.role,
     });
   }
 
-  async login({ email, password }: { email: string; password: string }) {
-    const user = await this.userModel.findByEmail(email);
+  async login(credentials: UserCredentials) {
+    const user = await this.userModel.findByEmail(credentials.email);
     if (!user) throw new Error("User not found");
 
-    const valid = await bcrypt.compare(password, user.password);
+    const valid = await bcrypt.compare(
+      credentials.password,
+      user.password_hash
+    );
     if (!valid) throw new Error("Invalid credentials");
 
     const accessToken = await this.tokenProvider.sign({
-      userId: user.id,
+      userId: user.user_id,
       email: user.email,
     });
 
     const refreshToken = await this.tokenProvider.signRefreshToken({
-      userId: user.id,
+      userId: user.user_id,
       email: user.email,
     });
 
-    this.refreshStorage.save(user.id, refreshToken);
+    this.refreshStorage.save(user.user_id, refreshToken);
 
     return { accessToken, refreshToken };
   }
@@ -117,5 +122,29 @@ export class AuthService {
     });
 
     return { accessToken: newAccessToken };
+  }
+
+  async createRootAdmin() {
+    const email = process.env.ADMIN_EMAIL;
+    const password = process.env.ADMIN_PASSWORD;
+
+    if (!email || !password) {
+      throw new Error(
+        "No ADMIN_EMAIL or ADMIN_PASSWORD set, please set them as environment variables and restart the server"
+      );
+    }
+
+    const existing = await this.userModel.findByEmail(email);
+    if (!existing) {
+      await this.register({
+        username: "root_admin",
+        email,
+        password,
+        role: "admin",
+      });
+      console.log("Admin user created");
+    } else {
+      console.log("Admin user already exists");
+    }
   }
 }

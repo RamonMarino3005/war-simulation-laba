@@ -1,6 +1,9 @@
 import express from "express";
 import { createAuthRouter } from "./routes/authRoutes.js";
 import { AuthService } from "services/authService.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const createApp = ({ authService }: { authService: AuthService }) => {
   const PORT = process.env.PORT || 3000;

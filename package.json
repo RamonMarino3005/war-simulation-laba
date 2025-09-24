@@ -7,8 +7,9 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
+    "copy-assets": "cpx \"src/**/*.{json,html,css,sql}\" dist/",
     "start": "node src/server.js",
-    "build": "tsc",
+    "build": "tsc && npm run copy-assets",
     "dev": "node  --loader ts-node/esm src/server.ts"
   },
   "repository": {
@@ -23,16 +24,19 @@
   "homepage": "https://github.com/RamonMarino3005/war-simulation-laba#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.2",
     "express": "^5.1.0",
-    "ts-node": "^10.9.2",
+    "pg": "^8.16.3",
     "zod": "^4.0.17"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.3",
     "@types/jest": "^30.0.0",
+    "@types/pg": "^8.15.5",
+    "cpx": "^1.5.0",
     "jest": "^30.0.5",
     "ts-jest": "^29.4.1",
-    "tsc-alias": "^1.8.16"
+    "ts-node": "^10.9.2"
   }
 }

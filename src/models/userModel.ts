@@ -1,57 +1,59 @@
-import path from "path";
-import fs from "fs";
-import { fileURLToPath } from "url";
-import { User } from "types/userTypes.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const DB_PATH = path.join(__dirname, "../db/mockDb.json");
+import { PublicUser, StoredUser, UserFields } from "types/userTypes.js";
+import { randomUUID } from "crypto";
+import { DB_Controller } from "../db/types/dbTypes.js";
 
 export class UserModel {
-  private readUsers(): User[] {
-    const raw = fs.readFileSync(DB_PATH, "utf-8");
-    return JSON.parse(raw) as User[];
-  }
+  constructor(private db: DB_Controller) {}
 
-  private writeUsers(users: User[]) {
-    fs.writeFileSync(DB_PATH, JSON.stringify(users, null, 2), "utf-8");
-  }
+  async getUsers(): Promise<PublicUser[]> {
+    const { rows } = await this.db.query("SELECT * FROM users");
 
-  async getUsers(): Promise<User[]> {
-    const users = this.readUsers();
+    const users: PublicUser[] = rows.map((row) => ({
+      user_id: row.user_id,
+      username: row.username,
+      email: row.email,
+      role: row.role,
+    }));
     return users;
   }
 
-  async createUser(user: Omit<User, "id">) {
-    const users = this.readUsers();
+  async createUser(user: UserFields): Promise<PublicUser> {
+    const id = randomUUID();
 
-    const newUser = {
-      id: crypto.randomUUID(),
-      ...user,
+    const { rows } = await this.db.query(
+      "INSERT INTO users (user_id, username, email, role, password_hash) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [id, user.username, user.email, user.role, user.password]
+    );
+
+    const publicUser: PublicUser = {
+      user_id: rows[0].user_id,
+      username: rows[0].username,
+      email: rows[0].email,
+      role: rows[0].role,
     };
 
-    users.push(newUser);
-    this.writeUsers(users);
-    return newUser;
+    return publicUser;
   }
 
-  async findByEmail(email: string) {
-    const users = this.readUsers();
-    return users.find((u) => u.email === email);
+  async findByEmail(email: string): Promise<StoredUser | null> {
+    const { rows } = await this.db.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
+
+    return rows.length ? rows[0] : null;
   }
 
-  async findByUsername(username: string) {
-    const users = this.readUsers();
-    return users.find((u) => u.username === username);
+  async findByUsername(username: string): Promise<StoredUser | null> {
+    const { rows } = await this.db.query(
+      "SELECT * FROM users WHERE username = $1",
+      [username]
+    );
+    return rows.length ? rows[0] : null;
   }
 
   async deleteUser(userId: string) {
-    const users = this.readUsers();
-
-    const newList = users.filter((user) => userId !== user.id);
-
-    this.writeUsers(newList);
-
+    await this.db.query("DELETE FROM users WHERE user_id = $1", [userId]);
     return true;
   }
 }

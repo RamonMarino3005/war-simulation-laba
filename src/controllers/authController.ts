@@ -58,7 +58,6 @@ export class AuthController {
 
     const result = await this.authService.delete({ userId: user.userId });
 
-    console.log("Result:", result);
     res.status(200).json(result);
   };
 
