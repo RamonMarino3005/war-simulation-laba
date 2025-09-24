@@ -3,6 +3,8 @@
 ## Table of contents
 
 - [**Overview**](#overview)
+- [**Manual Setup**](#manual-setup)
+- [**Docker Setup**](#docker-setup)
 
 ## Overview
 
@@ -27,7 +29,7 @@ ERD Diagram:
 ![ERD DIAGRAM](./docs/ERD_warSim.png)
 
 
-# Manual Setup
+## Manual Setup
 
 This section explains how to run the project manually on your local machine, without using Docker.
 
@@ -110,7 +112,7 @@ npm run serve
 
 
 
-# Docker Setup
+## Docker Setup
 
 This project uses **Docker** and **Docker Compose** to run both the PostgreSQL database, Redis and the Node.js application.
 
