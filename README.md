@@ -27,11 +27,94 @@ ERD Diagram:
 ![ERD DIAGRAM](./docs/ERD_warSim.png)
 
 
+# Manual Setup
+
+This section explains how to run the project manually on your local machine, without using Docker.
+
+---
+
+### 1. Prerequisites
+
+Make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (v22 recommended)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+- [PostgreSQL](https://www.postgresql.org/download/) (v16 recommended)
+
+---
+
+### 2. Prepare Your PostgreSQL User
+
+The app will automatically create the database and tables on startup. You **do not need to create them manually**, but you must provide a PostgreSQL user with **CREATE DATABASE privileges**.
+
+- This user will be used by the app to connect to PostgreSQL.
+- Make sure the PostgreSQL server is running.
+
+---
+
+### 3. Set Environment Variables
+
+Create a `.env` file in the project root with the following variables:
+
+```env
+# Database connection
+DB_USER=warsimuser         # PostgreSQL user with CREATE DATABASE privileges
+DB_PASSWORD=mypassword     # Password for the user
+DB_NAME=warsimapp          # Name of the database the app will create
+DB_HOST=localhost          # PostgreSQL host (default: localhost)
+DB_PORT=5432               # PostgreSQL port (default: 5432)
+```
+
+The app will use these values to connect to PostgreSQL, create the database if it does not exist, and initialize the tables.
+When using Docker, environment variables from docker-compose.yml take precedence.
+
+You should also specify the credentials for the root Admin user: 
+```env
+# First admin account credentials
+ADMIN_EMAIL=admin@war-simulation.com
+ADMIN_PASSWORD=adminpassword
+```
+
+### 4. Install Dependencies
+
+```bash
+npm install
+```
+
+### 5. Initialize and Start the Application
+
+On startup, the app will automatically create the database, tables, and the first admin user.
+
+You can start the application using either of the following methods:
+
+**Option 1: Build and then run**
+```bash
+npm run build
+npm start
+```
+
+**Option 2: Build and run in a single step**
+```bash
+npm run serve
+```
+
+- The app will start on http://localhost:3000
+- Make sure your PostgreSQL server is running before starting the app.
+
+### 6. Notes
+
+- If you change database credentials, update your .env file accordingly.
+- The DB_USER must have privileges to create a database, otherwise the app cannot initialize the database.
+- For production, use strong passwords.
+
+
+
+
 # Docker Setup
 
 This project uses **Docker** and **Docker Compose** to run both the PostgreSQL database, Redis and the Node.js application.
 
-## 1. Prerequisites
+### 1. Prerequisites
 
 Make sure the following are installed on your system:
 
@@ -40,7 +123,7 @@ Make sure the following are installed on your system:
 
 ---
 
-## 2. Environment Variables
+### 2. Environment Variables
 
 The application requires certain environment variables to run. These are set directly in `docker-compose.yml`:
 
@@ -61,7 +144,7 @@ ADMIN_PASSWORD: adminpassword
 ```
 You should change the credentials for security, always keeping `USER`, `PASSWORD`, `DB NAME` the same across both services.
 
-## 3. Build and Start Containers
+### 3. Build and Start Containers
 
 From the project root, run:
 
@@ -79,7 +162,7 @@ This command will:
 
 &nbsp;&nbsp;&nbsp;**4.** Wait for the database to pass the healthcheck before starting the app.
 
-## 4. Stop Containers
+### 4. Stop Containers
 
 To stop and remove the running containers while keeping database data:
 
@@ -89,7 +172,7 @@ docker-compose down
 
 The PostgreSQL data is persisted in the db_data volume, so it is safe to restart.
 
-## 5. Rebuild Without Cache
+### 5. Rebuild Without Cache
 
 If you need to rebuild the images from scratch:
 
@@ -98,7 +181,7 @@ docker-compose build --no-cache
 docker-compose up
 ```
 
-## 6. Notes & Tips
+### 6. Notes & Tips
 
 - The database initialization script init.sql is automatically executed on first container startup.
 - The app requires ADMIN_EMAIL and ADMIN_PASSWORD to create the first admin user.
