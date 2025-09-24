@@ -14,9 +14,11 @@ export const getSession = (authService: AuthService) => {
     if (!token) return res.status(401).json({ error: "Unauthenticated" });
 
     const payload = await authService.verifyToken({ token });
-    if (!payload) return res.status(400).json({ error: "Invalid token" });
+    if (!payload) return res.status(400).json({ error: "Unauthenticated" });
 
-    req.session = { userId: payload.userId, email: payload.email };
+    console.log("Verified Payload:", payload);
+    const { exp, ...userData } = payload;
+    req.session = userData;
 
     next();
   };

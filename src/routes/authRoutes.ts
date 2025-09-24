@@ -14,6 +14,12 @@ export const createAuthRouter = (authService: AuthService) => {
   const authController = new AuthController(authService);
 
   router.get("/users", authController.getUsers);
+  router.get(
+    "/users/:id",
+    extractToken,
+    getSession(authService),
+    authController.getUserById
+  );
   //   router.get("/sign-up", authController.getSignUp);
 
   router.post("/sign-up", validateRegister, authController.register);

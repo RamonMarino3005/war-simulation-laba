@@ -4,6 +4,7 @@ declare namespace Express {
     session?: {
       userId: string;
       email: string;
+      role?: "user" | "admin";
     };
     token?: string;
   }

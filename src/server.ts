@@ -1,4 +1,4 @@
-import { AuthService } from "./services/authService.js";
+import { AuthService, Payload } from "./services/authService.js";
 import createApp from "./app.js";
 import { JwtProvider } from "./utils/jwt/jwtProvider.js";
 import { RefreshStorage } from "./models/refreshModel.js";
@@ -11,7 +11,7 @@ const refreshSecret = "refresh-secret";
 
 // Initialize dependencies
 const userModel = new UserModel(db);
-const jwtProvider = new JwtProvider(accessSecret, refreshSecret);
+const jwtProvider = new JwtProvider<Payload>(accessSecret, refreshSecret);
 const refreshStorage = new RefreshStorage();
 const authService = new AuthService(userModel, jwtProvider, refreshStorage);
 

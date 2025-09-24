@@ -29,8 +29,6 @@ function verify({ token, secret }: VerifyParams) {
     encodedPayload,
   });
 
-  console.log("In here!");
-
   if (tokenSignature !== requiredSignature) {
     throw new Error("Invalid signature");
   }
@@ -42,7 +40,7 @@ function verify({ token, secret }: VerifyParams) {
   if (hasExpired(exp)) {
     throw new Error("Token has expired");
   }
-  console.log("Decoded:", decoded);
+
   return decoded;
 }
 

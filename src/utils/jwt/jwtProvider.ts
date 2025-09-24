@@ -1,6 +1,6 @@
-import { Payload } from "services/authService.js";
 import * as jwt from "./index.js";
-export class JwtProvider {
+
+export class JwtProvider<T extends object> {
   private accessSecret: string;
   private refreshSecret: string;
 
@@ -9,7 +9,7 @@ export class JwtProvider {
     this.refreshSecret = refreshSecret;
   }
 
-  sign(payload: Payload): Promise<string> {
+  sign(payload: T): Promise<string> {
     return Promise.resolve(
       jwt.sign({
         payload,
@@ -21,7 +21,7 @@ export class JwtProvider {
     );
   }
 
-  verify(token: string): Promise<Payload | null> {
+  verify(token: string): Promise<(T & { exp: number }) | null> {
     try {
       return Promise.resolve(jwt.verify({ token, secret: this.accessSecret }));
     } catch {
@@ -29,7 +29,7 @@ export class JwtProvider {
     }
   }
 
-  signRefreshToken(payload: Payload): Promise<string> {
+  signRefreshToken(payload: T): Promise<string> {
     return Promise.resolve(
       jwt.sign({
         payload,
@@ -41,7 +41,7 @@ export class JwtProvider {
     );
   }
 
-  verifyRefreshToken(token: string): Promise<Payload | null> {
+  verifyRefreshToken(token: string): Promise<(T & { exp: number }) | null> {
     try {
       return Promise.resolve(jwt.verify({ token, secret: this.refreshSecret }));
     } catch {

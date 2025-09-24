@@ -11,18 +11,22 @@ import {
 export type Payload = {
   userId: string;
   email: string;
+  role?: "user" | "admin";
 };
+type SignedPayload = Payload & { exp: number };
+
 interface TokenProvider {
   sign(payload: Payload): Promise<string>;
-  verify(token: string): Promise<Payload | null>;
+  verify(token: string): Promise<SignedPayload | null>;
   signRefreshToken(payload: Payload): Promise<string>;
-  verifyRefreshToken(token: string): Promise<Payload | null>;
+  verifyRefreshToken(token: string): Promise<SignedPayload | null>;
 }
 
 interface UserModel {
   getUsers(): Promise<PublicUser[]>;
   findByEmail(email: string): Promise<StoredUser | null>;
   findByUsername(username: string): Promise<StoredUser | null>;
+  findById(userId: string): Promise<StoredUser | null>;
   createUser(user: UserFields): Promise<PublicUser>;
   deleteUser(userId: string): Promise<boolean>;
 }
@@ -50,6 +54,18 @@ export class AuthService {
 
   async getUsers() {
     return this.userModel.getUsers();
+  }
+
+  async getUserById(userId: string): Promise<PublicUser | null> {
+    const user = await this.userModel.findById(userId);
+    if (!user) return null;
+
+    return {
+      user_id: user.user_id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+    };
   }
 
   async register(newUser: UserFields) {
@@ -86,11 +102,13 @@ export class AuthService {
     const accessToken = await this.tokenProvider.sign({
       userId: user.user_id,
       email: user.email,
+      role: user.role,
     });
 
     const refreshToken = await this.tokenProvider.signRefreshToken({
       userId: user.user_id,
       email: user.email,
+      role: user.role,
     });
 
     await this.refreshStorage.save(user.user_id, refreshToken);

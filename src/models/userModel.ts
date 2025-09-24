@@ -52,6 +52,15 @@ export class UserModel {
     return rows.length ? rows[0] : null;
   }
 
+  async findById(userId: string): Promise<StoredUser | null> {
+    const { rows } = await this.db.query(
+      "SELECT * FROM users WHERE user_id = $1",
+      [userId]
+    );
+
+    return rows.length ? rows[0] : null;
+  }
+
   async deleteUser(userId: string) {
     await this.db.query("DELETE FROM users WHERE user_id = $1", [userId]);
     return true;
