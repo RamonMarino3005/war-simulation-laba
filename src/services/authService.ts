@@ -93,7 +93,7 @@ export class AuthService {
       email: user.email,
     });
 
-    this.refreshStorage.save(user.user_id, refreshToken);
+    await this.refreshStorage.save(user.user_id, refreshToken);
 
     return { accessToken, refreshToken };
   }
