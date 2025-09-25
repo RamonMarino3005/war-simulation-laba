@@ -7,13 +7,19 @@ import {
 import { AuthService } from "../services/authService.js";
 import { UserCredentials, UserFields } from "types/userTypes.js";
 
-export const getSession = (authService: AuthService) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
+export class AuthMiddleware {
+  private authService: AuthService;
+
+  constructor(authService: AuthService) {
+    this.authService = authService;
+  }
+
+  getSession = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.token;
 
     if (!token) return res.status(401).json({ error: "Unauthenticated" });
 
-    const payload = await authService.verifyToken({ token });
+    const payload = await this.authService.verifyToken({ token });
     if (!payload) return res.status(400).json({ error: "Unauthenticated" });
 
     console.log("Verified Payload:", payload);
@@ -22,63 +28,55 @@ export const getSession = (authService: AuthService) => {
 
     next();
   };
-};
 
-export const extractToken = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  let token = null;
+  extractToken = async (req: Request, res: Response, next: NextFunction) => {
+    let token = null;
 
-  // 1. Check auth header for API clients
-  if (req.headers.authorization?.startsWith("Bearer ")) {
-    token = req.headers.authorization.split(" ")[1];
-  }
+    // 1. Check auth header for API clients
+    if (req.headers.authorization?.startsWith("Bearer ")) {
+      token = req.headers.authorization.split(" ")[1];
+    }
 
-  // 2. If no header, try cookie for browsers
-  if (!token && req.cookies?.accessToken) {
-    token = req.cookies.accessToken;
-  }
+    // 2. If no header, try cookie for browsers
+    if (!token && req.cookies?.accessToken) {
+      token = req.cookies.accessToken;
+    }
 
-  if (!token) return res.status(401).json({ message: "Unauthorized" });
+    if (!token) return res.status(401).json({ message: "Unauthorized" });
 
-  req.token = token;
-  next();
-};
+    req.token = token;
+    next();
+  };
 
-export const validateLogin = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const result = validateLoginSchema(req.body);
+  validateLogin = async (req: Request, res: Response, next: NextFunction) => {
+    const result = validateLoginSchema(req.body);
 
-  if (!result.success) {
-    return res
-      .status(400)
-      .json({ errors: formatError(result.error).properties });
-  }
+    if (!result.success) {
+      return res
+        .status(400)
+        .json({ errors: formatError(result.error).properties });
+    }
 
-  req.validatedBody = result.data as UserCredentials;
+    req.validatedBody = result.data as UserCredentials;
 
-  next();
-};
+    next();
+  };
 
-export const validateRegister = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const result = validateUserSchema(req.body);
+  validateRegister = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const result = validateUserSchema(req.body);
 
-  if (!result.success) {
-    return res
-      .status(400)
-      .json({ errors: formatError(result.error).properties });
-  }
+    if (!result.success) {
+      return res
+        .status(400)
+        .json({ errors: formatError(result.error).properties });
+    }
 
-  req.validatedBody = result.data as UserFields;
+    req.validatedBody = result.data as UserFields;
 
-  next();
-};
+    next();
+  };
+}

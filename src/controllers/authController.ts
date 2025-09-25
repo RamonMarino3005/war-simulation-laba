@@ -9,34 +9,6 @@ export class AuthController {
     this.authService = authService;
   }
 
-  getUsers = async (req: Request, res: Response) => {
-    const users = await this.authService.getUsers();
-    res.status(200).json(users);
-  };
-
-  getUserById = async (req: Request, res: Response) => {
-    const userId = req.session.userId;
-    const requestedUserId = req.params.id;
-
-    console.log("Session:", req.session);
-    console.log("Requested User ID:", requestedUserId);
-
-    if (userId !== requestedUserId && req.session.role !== "admin") {
-      return res.status(403).json({ error: "Forbidden" });
-    }
-
-    try {
-      const user = await this.authService.getUserById(requestedUserId);
-      if (user) {
-        res.status(200).json(user);
-      } else {
-        res.status(404).json({ error: "User not found" });
-      }
-    } catch (err: any) {
-      res.status(500).json({ error: err.message });
-    }
-  };
-
   register = async (req: Request, res: Response) => {
     const newUser = req.validatedBody as UserFields;
 
@@ -83,14 +55,6 @@ export class AuthController {
 
     await this.authService.logout({ userId: session.userId });
     res.status(204).json({ message: "Logged out successfully" });
-  };
-
-  deleteUser = async (req: Request, res: Response) => {
-    const session = req.session;
-
-    const result = await this.authService.delete({ userId: session.userId });
-
-    res.status(200).json(result);
   };
 
   protectedRoute = async (req: Request, res: Response) => {

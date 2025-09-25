@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import {
   PublicUser,
   StoredUser,
-  User,
   UserCredentials,
   UserFields,
 } from "types/userTypes.js";
@@ -50,22 +49,6 @@ export class AuthService {
     this.userModel = userModel;
     this.tokenProvider = tokenProvider;
     this.refreshStorage = refreshStorage;
-  }
-
-  async getUsers() {
-    return this.userModel.getUsers();
-  }
-
-  async getUserById(userId: string): Promise<PublicUser | null> {
-    const user = await this.userModel.findById(userId);
-    if (!user) return null;
-
-    return {
-      user_id: user.user_id,
-      username: user.username,
-      email: user.email,
-      role: user.role,
-    };
   }
 
   async register(newUser: UserFields) {
@@ -118,10 +101,6 @@ export class AuthService {
 
   async logout({ userId }: { userId: string }) {
     return await this.refreshStorage.revoke(userId, "");
-  }
-
-  async delete({ userId }: { userId: string }) {
-    return await this.userModel.deleteUser(userId);
   }
 
   async verifyToken({ token }: { token: string }) {
