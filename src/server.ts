@@ -1,4 +1,4 @@
-import { AuthService, Payload } from "./services/authService.js";
+import { AuthService } from "./services/authService.js";
 import createApp from "./app.js";
 import { JwtProvider } from "./utils/jwt/jwtProvider.js";
 import { RefreshStorage } from "./models/refreshModel.js";
@@ -7,6 +7,7 @@ import { UserModel } from "./models/userModel.js";
 import { testConnection } from "./db/helpers.js";
 import { AuthMiddleware } from "./middlewares/authMiddlewares.js";
 import { UserService } from "./services/userService.js";
+import { Payload } from "types/services/IAuthService.js";
 
 const accessSecret = "my-secret";
 const refreshSecret = "refresh-secret";

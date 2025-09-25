@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
 import { getDirname } from "../../utils/fs/dirname.js";
-import { DB_Controller } from "db/types/dbTypes.js";
+import { DB_Controller } from "../../types/db/db_types.js";
 
 dotenv.config();
 

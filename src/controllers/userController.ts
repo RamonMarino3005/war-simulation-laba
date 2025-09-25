@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { UserService } from "services/userService.js";
+import { IUserService } from "types/services/IUserService.js";
 
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private userService: IUserService) {}
 
   getUsers = async (req: Request, res: Response) => {
     const session = req.session;

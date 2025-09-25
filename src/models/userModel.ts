@@ -1,8 +1,9 @@
 import { PublicUser, StoredUser, UserFields } from "types/userTypes.js";
 import { randomUUID } from "crypto";
-import { DB_Controller } from "../db/types/dbTypes.js";
+import { DB_Controller } from "../types/db/db_types.js";
+import { IUserModel } from "types/models/IUserModel.js";
 
-export class UserModel {
+export class UserModel implements IUserModel {
   constructor(private db: DB_Controller) {}
 
   async getUsers(): Promise<PublicUser[]> {

@@ -1,50 +1,20 @@
 // authService.ts
 import bcrypt from "bcrypt";
-import {
-  PublicUser,
-  StoredUser,
-  UserCredentials,
-  UserFields,
-} from "types/userTypes.js";
+import { IRefreshTokenModel } from "types/models/IRefreshTokenModel.js";
+import { IUserModel } from "types/models/IUserModel.js";
+import { ITokenProvider } from "types/providers/ITokenProvider.js";
+import { IAuthService } from "types/services/IAuthService.js";
+import { UserCredentials, UserFields } from "types/userTypes.js";
 
-export type Payload = {
-  userId: string;
-  email: string;
-  role?: "user" | "admin";
-};
-type SignedPayload = Payload & { exp: number };
-
-interface TokenProvider {
-  sign(payload: Payload): Promise<string>;
-  verify(token: string): Promise<SignedPayload | null>;
-  signRefreshToken(payload: Payload): Promise<string>;
-  verifyRefreshToken(token: string): Promise<SignedPayload | null>;
-}
-
-interface UserModel {
-  getUsers(): Promise<PublicUser[]>;
-  findByEmail(email: string): Promise<StoredUser | null>;
-  findByUsername(username: string): Promise<StoredUser | null>;
-  findById(userId: string): Promise<StoredUser | null>;
-  createUser(user: UserFields): Promise<PublicUser>;
-  deleteUser(userId: string): Promise<boolean>;
-}
-
-interface RefreshTokenRepository {
-  save(userId: string, token: string): Promise<void>;
-  exists(userId: string, token: string): Promise<boolean>;
-  revoke(userId: string, token: string): Promise<void>;
-}
-
-export class AuthService {
-  private userModel: UserModel;
-  private tokenProvider: TokenProvider;
-  private refreshStorage: RefreshTokenRepository;
+export class AuthService implements IAuthService {
+  private userModel: IUserModel;
+  private tokenProvider: ITokenProvider;
+  private refreshStorage: IRefreshTokenModel;
 
   constructor(
-    userModel: UserModel,
-    tokenProvider: TokenProvider,
-    refreshStorage: RefreshTokenRepository
+    userModel: IUserModel,
+    tokenProvider: ITokenProvider,
+    refreshStorage: IRefreshTokenModel
   ) {
     this.userModel = userModel;
     this.tokenProvider = tokenProvider;

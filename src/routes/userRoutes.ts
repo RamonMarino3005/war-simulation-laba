@@ -1,11 +1,11 @@
 import express from "express";
-import { UserService } from "services/userService.js";
 import { UserController } from "../controllers/userController.js";
-import { AuthMiddleware } from "../middlewares/authMiddlewares.js";
+import { IAuthMiddleware } from "types/middlewares/IAuthMiddleware.js";
+import { IUserService } from "types/services/IUserService.js";
 
 export const createUserRouter = (
-  userService: UserService,
-  authMiddlewares: AuthMiddleware
+  userService: IUserService,
+  authMiddlewares: IAuthMiddleware
 ) => {
   const router = express.Router();
 

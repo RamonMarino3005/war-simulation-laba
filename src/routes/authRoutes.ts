@@ -1,11 +1,11 @@
 import express from "express";
 import { AuthController } from "../controllers/authController.js";
-import { AuthService } from "../services/authService.js";
-import { AuthMiddleware } from "middlewares/authMiddlewares.js";
+import { IAuthService } from "types/services/IAuthService.js";
+import { IAuthMiddleware } from "types/middlewares/IAuthMiddleware.js";
 
 export const createAuthRouter = (
-  authService: AuthService,
-  authMiddlewares: AuthMiddleware
+  authService: IAuthService,
+  authMiddlewares: IAuthMiddleware
 ) => {
   const { extractToken, getSession, validateLogin, validateRegister } =
     authMiddlewares;

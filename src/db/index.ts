@@ -1,5 +1,5 @@
 import PostgresDb from "./postgres/index.js";
-import { DB_Controller } from "./types/dbTypes.js";
+import { DB_Controller } from "../types/db/db_types.js";
 
 if (!process.env.DB_USER || !process.env.DB_PASSWORD) {
   throw new Error(

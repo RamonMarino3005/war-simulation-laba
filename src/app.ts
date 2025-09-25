@@ -1,10 +1,10 @@
 import express from "express";
 import { createAuthRouter } from "./routes/authRoutes.js";
-import { AuthService } from "services/authService.js";
 import dotenv from "dotenv";
-import { AuthMiddleware } from "middlewares/authMiddlewares.js";
-import { UserService } from "./services/userService.js";
 import { createUserRouter } from "./routes/userRoutes.js";
+import { IAuthService } from "types/services/IAuthService.js";
+import { IUserService } from "types/services/IUserService.js";
+import { IAuthMiddleware } from "types/middlewares/IAuthMiddleware.js";
 
 dotenv.config();
 
@@ -13,9 +13,9 @@ export const createApp = ({
   userService,
   authMiddlewares,
 }: {
-  authService: AuthService;
-  userService: UserService;
-  authMiddlewares: AuthMiddleware;
+  authService: IAuthService;
+  userService: IUserService;
+  authMiddlewares: IAuthMiddleware;
 }) => {
   const PORT = process.env.PORT || 3000;
 
@@ -34,9 +34,9 @@ export const createApp = ({
     res.send("Hello World");
   });
 
-  console.log("Auth Service in app.ts:");
   app.use("/auth", createAuthRouter(authService, authMiddlewares));
   app.use("/users", createUserRouter(userService, authMiddlewares));
+
   app.listen(PORT, () =>
     console.log(`Server running on http://localhost:${PORT}`)
   );

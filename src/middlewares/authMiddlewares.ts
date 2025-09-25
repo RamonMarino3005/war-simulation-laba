@@ -1,26 +1,37 @@
-import { NextFunction, Request, Response } from "express";
 import {
   formatError,
   validateLoginSchema,
   validateUserSchema,
 } from "../schemas/user.js";
-import { AuthService } from "../services/authService.js";
 import { UserCredentials, UserFields } from "types/userTypes.js";
+import { IAuthService } from "types/services/IAuthService.js";
+import { IAuthMiddleware } from "types/middlewares/IAuthMiddleware.js";
+import { NextFunction, Request, Response } from "express";
 
-export class AuthMiddleware {
-  private authService: AuthService;
+export class AuthMiddleware implements IAuthMiddleware {
+  private authService: IAuthService;
 
-  constructor(authService: AuthService) {
+  constructor(authService: IAuthService) {
     this.authService = authService;
   }
 
-  getSession = async (req: Request, res: Response, next: NextFunction) => {
+  getSession = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     const token = req.token;
 
-    if (!token) return res.status(401).json({ error: "Unauthenticated" });
+    if (!token) {
+      res.status(401).json({ error: "Unauthenticated" });
+      return;
+    }
 
     const payload = await this.authService.verifyToken({ token });
-    if (!payload) return res.status(400).json({ error: "Unauthenticated" });
+    if (!payload) {
+      res.status(400).json({ error: "Unauthenticated" });
+      return;
+    }
 
     console.log("Verified Payload:", payload);
     const { exp, ...userData } = payload;
@@ -42,7 +53,10 @@ export class AuthMiddleware {
       token = req.cookies.accessToken;
     }
 
-    if (!token) return res.status(401).json({ message: "Unauthorized" });
+    if (!token) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
 
     req.token = token;
     next();
@@ -52,9 +66,8 @@ export class AuthMiddleware {
     const result = validateLoginSchema(req.body);
 
     if (!result.success) {
-      return res
-        .status(400)
-        .json({ errors: formatError(result.error).properties });
+      res.status(400).json({ errors: formatError(result.error).properties });
+      return;
     }
 
     req.validatedBody = result.data as UserCredentials;
@@ -70,9 +83,8 @@ export class AuthMiddleware {
     const result = validateUserSchema(req.body);
 
     if (!result.success) {
-      return res
-        .status(400)
-        .json({ errors: formatError(result.error).properties });
+      res.status(400).json({ errors: formatError(result.error).properties });
+      return;
     }
 
     req.validatedBody = result.data as UserFields;

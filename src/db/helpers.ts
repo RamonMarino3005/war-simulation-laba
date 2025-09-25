@@ -1,4 +1,4 @@
-import { DB_Controller } from "./types/dbTypes.js";
+import { DB_Controller } from "../types/db/db_types.js";
 
 export function testConnection(db: DB_Controller) {
   db.query("SELECT NOW()")

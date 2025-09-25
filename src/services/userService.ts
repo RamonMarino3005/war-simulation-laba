@@ -1,19 +1,12 @@
 // authService.ts
-import { PublicUser, StoredUser, UserFields } from "types/userTypes.js";
+import { IUserModel } from "types/models/IUserModel.js";
+import { IUserService } from "types/services/IUserService.js";
+import { PublicUser } from "types/userTypes.js";
 
-interface UserModel {
-  getUsers(): Promise<PublicUser[]>;
-  findByEmail(email: string): Promise<StoredUser | null>;
-  findByUsername(username: string): Promise<StoredUser | null>;
-  findById(userId: string): Promise<StoredUser | null>;
-  createUser(user: UserFields): Promise<PublicUser>;
-  deleteUser(userId: string): Promise<boolean>;
-}
+export class UserService implements IUserService {
+  private userModel: IUserModel;
 
-export class UserService {
-  private userModel: UserModel;
-
-  constructor(userModel: UserModel) {
+  constructor(userModel: IUserModel) {
     this.userModel = userModel;
   }
 

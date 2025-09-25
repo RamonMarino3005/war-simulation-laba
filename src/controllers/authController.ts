@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { AuthService } from "../services/authService.js";
 import { UserCredentials, UserFields } from "types/userTypes.js";
+import { IAuthService } from "types/services/IAuthService.js";
 
 export class AuthController {
-  private authService: AuthService;
+  private authService: IAuthService;
 
-  constructor(authService: AuthService) {
+  constructor(authService: IAuthService) {
     this.authService = authService;
   }
 
