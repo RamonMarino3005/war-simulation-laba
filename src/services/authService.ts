@@ -4,7 +4,7 @@ import { IRefreshTokenModel } from "types/models/IRefreshTokenModel.js";
 import { IUserModel } from "types/models/IUserModel.js";
 import { ITokenProvider } from "types/providers/ITokenProvider.js";
 import { IAuthService } from "types/services/IAuthService.js";
-import { UserCredentials, UserFields } from "types/userTypes.js";
+import { UserCredentials, UserFields } from "types/entities/userTypes.js";
 
 export class AuthService implements IAuthService {
   private userModel: IUserModel;

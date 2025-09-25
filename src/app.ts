@@ -5,17 +5,24 @@ import { createUserRouter } from "./routes/userRoutes.js";
 import { IAuthService } from "types/services/IAuthService.js";
 import { IUserService } from "types/services/IUserService.js";
 import { IAuthMiddleware } from "types/middlewares/IAuthMiddleware.js";
+import { createArmyRouter } from "./routes/gameRoutes/armyRoutes.js";
+import { IArmyService } from "types/services/IArmyService.js";
+import { IArmyMiddleware } from "types/middlewares/IArmyMiddleware.js";
 
 dotenv.config();
 
 export const createApp = ({
   authService,
   userService,
+  armyService,
   authMiddlewares,
+  armyMiddlewares,
 }: {
   authService: IAuthService;
   userService: IUserService;
+  armyService: IArmyService;
   authMiddlewares: IAuthMiddleware;
+  armyMiddlewares: IArmyMiddleware;
 }) => {
   const PORT = process.env.PORT || 3000;
 
@@ -36,6 +43,10 @@ export const createApp = ({
 
   app.use("/auth", createAuthRouter(authService, authMiddlewares));
   app.use("/users", createUserRouter(userService, authMiddlewares));
+  app.use(
+    "/army",
+    createArmyRouter(armyService, authMiddlewares, armyMiddlewares)
+  );
 
   app.listen(PORT, () =>
     console.log(`Server running on http://localhost:${PORT}`)

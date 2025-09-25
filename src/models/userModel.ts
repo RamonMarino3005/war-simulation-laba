@@ -1,4 +1,8 @@
-import { PublicUser, StoredUser, UserFields } from "types/userTypes.js";
+import {
+  PublicUser,
+  StoredUser,
+  UserFields,
+} from "types/entities/userTypes.js";
 import { randomUUID } from "crypto";
 import { DB_Controller } from "../types/db/db_types.js";
 import { IUserModel } from "types/models/IUserModel.js";

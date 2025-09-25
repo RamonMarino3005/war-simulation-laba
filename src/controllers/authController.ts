@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UserCredentials, UserFields } from "types/userTypes.js";
+import { UserCredentials, UserFields } from "types/entities/userTypes.js";
 import { IAuthService } from "types/services/IAuthService.js";
 
 export class AuthController {
@@ -83,7 +83,6 @@ export class AuthController {
 
     try {
       const accessToken = await this.authService.refresh({ refreshToken });
-      console.log(accessToken);
       res.status(200).json(accessToken);
     } catch (e) {
       res.status(403).json({ error: e.message });

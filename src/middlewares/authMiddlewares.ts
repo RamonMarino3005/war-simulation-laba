@@ -1,12 +1,9 @@
-import {
-  formatError,
-  validateLoginSchema,
-  validateUserSchema,
-} from "../schemas/user.js";
-import { UserCredentials, UserFields } from "types/userTypes.js";
+import { validateLoginSchema, validateUserSchema } from "../schemas/user.js";
+import { UserCredentials, UserFields } from "types/entities/userTypes.js";
 import { IAuthService } from "types/services/IAuthService.js";
 import { IAuthMiddleware } from "types/middlewares/IAuthMiddleware.js";
 import { NextFunction, Request, Response } from "express";
+import { formatError } from "../schemas/helpers.js";
 
 export class AuthMiddleware implements IAuthMiddleware {
   private authService: IAuthService;

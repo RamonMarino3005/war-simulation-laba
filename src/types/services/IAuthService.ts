@@ -1,4 +1,8 @@
-import { PublicUser, UserCredentials, UserFields } from "types/userTypes.js";
+import {
+  PublicUser,
+  UserCredentials,
+  UserFields,
+} from "types/entities/userTypes.js";
 
 export type Payload = {
   userId: string;

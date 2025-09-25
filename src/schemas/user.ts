@@ -18,7 +18,3 @@ export function validateUserSchema(object: any) {
 export function validateLoginSchema(object: any) {
   return userSchema.omit({ username: true }).safeParse(object);
 }
-
-export function formatError<T>(error: ZodError<T>) {
-  return z.treeifyError(error);
-}

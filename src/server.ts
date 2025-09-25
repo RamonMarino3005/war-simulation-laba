@@ -8,6 +8,9 @@ import { testConnection } from "./db/helpers.js";
 import { AuthMiddleware } from "./middlewares/authMiddlewares.js";
 import { UserService } from "./services/userService.js";
 import { Payload } from "types/services/IAuthService.js";
+import { ArmyService } from "./services/armyService.js";
+import { ArmyModel } from "./models/armyModel.js";
+import { ArmyMiddleware } from "./middlewares/armyMiddlewares.js";
 
 const accessSecret = "my-secret";
 const refreshSecret = "refresh-secret";
@@ -15,13 +18,17 @@ const refreshSecret = "refresh-secret";
 // Initialize dependencies
 
 const userModel = new UserModel(db);
+const armyModel = new ArmyModel(db);
+
 const jwtProvider = new JwtProvider<Payload>(accessSecret, refreshSecret);
 const refreshStorage = new RefreshStorage();
 const authService = new AuthService(userModel, jwtProvider, refreshStorage);
 
 const userService = new UserService(userModel);
+const armyService = new ArmyService(armyModel);
 
 const authMiddlewares = new AuthMiddleware(authService);
+const armyMiddlewares = new ArmyMiddleware();
 
 (async () => {
   try {
@@ -35,7 +42,13 @@ const authMiddlewares = new AuthMiddleware(authService);
     await authService.createRootAdmin();
 
     // Start the app
-    createApp({ authService, userService, authMiddlewares });
+    createApp({
+      authService,
+      userService,
+      armyService,
+      authMiddlewares,
+      armyMiddlewares,
+    });
   } catch (error) {
     console.error("Error initializing application:", error);
   }

@@ -1,7 +1,7 @@
 // authService.ts
 import { IUserModel } from "types/models/IUserModel.js";
 import { IUserService } from "types/services/IUserService.js";
-import { PublicUser } from "types/userTypes.js";
+import { PublicUser } from "types/entities/userTypes.js";
 
 export class UserService implements IUserService {
   private userModel: IUserModel;

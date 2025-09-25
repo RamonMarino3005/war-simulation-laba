@@ -1,4 +1,4 @@
-import { PublicUser } from "types/userTypes.js";
+import { PublicUser } from "types/entities/userTypes.js";
 
 export interface IUserService {
   getUsers(): Promise<PublicUser[]>;

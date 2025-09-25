@@ -1,4 +1,8 @@
-import { PublicUser, StoredUser, UserFields } from "types/userTypes.js";
+import {
+  PublicUser,
+  StoredUser,
+  UserFields,
+} from "types/entities/userTypes.js";
 
 export interface IUserModel {
   getUsers(): Promise<PublicUser[]>;
