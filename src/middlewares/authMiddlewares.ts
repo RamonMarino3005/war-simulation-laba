@@ -59,6 +59,15 @@ export class AuthMiddleware implements IAuthMiddleware {
     next();
   };
 
+  enforceAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    const session = req.session;
+    if (session.role !== "admin") {
+      res.status(403).json({ error: "Forbidden" });
+      return;
+    }
+    next();
+  };
+
   validateLogin = async (req: Request, res: Response, next: NextFunction) => {
     const result = validateLoginSchema(req.body);
 

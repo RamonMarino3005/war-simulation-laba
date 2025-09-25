@@ -5,12 +5,6 @@ export class UserController {
   constructor(private userService: IUserService) {}
 
   getUsers = async (req: Request, res: Response) => {
-    const session = req.session;
-
-    if (session.role !== "admin") {
-      return res.status(403).json({ error: "Forbidden" });
-    }
-
     const users = await this.userService.getUsers();
     res.status(200).json(users);
   };

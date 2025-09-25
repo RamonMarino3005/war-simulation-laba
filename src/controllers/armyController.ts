@@ -6,12 +6,6 @@ export class ArmyController {
   constructor(private armyService: IArmyService) {}
 
   getAllArmies = async (req: Request, res: Response) => {
-    const session = req.session;
-
-    if (session.role !== "admin") {
-      return res.status(403).json({ error: "Forbidden" });
-    }
-
     try {
       const armies = await this.armyService.getAllArmies();
       res.status(200).json(armies);

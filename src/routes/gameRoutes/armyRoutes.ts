@@ -17,12 +17,12 @@ export const createArmyRouter = (
 
   const { validateUUIDParam } = parameterValidators;
   const validateUUID = validateUUIDParam("id");
-  const { extractToken, getSession } = authMiddlewares;
+  const { extractToken, getSession, enforceAdmin } = authMiddlewares;
   const { validateArmyFields, validateArmyCreation } = armyMiddlewares;
 
   router.use(extractToken, getSession);
 
-  router.get("/list-armies", armyController.getAllArmies);
+  router.get("/list-armies", enforceAdmin, armyController.getAllArmies);
 
   router.get("/:id", validateUUID, armyController.getArmyById);
 

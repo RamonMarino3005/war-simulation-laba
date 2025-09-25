@@ -11,6 +11,11 @@ export interface IAuthMiddleware {
     res: Response,
     next: NextFunction
   ) => Promise<void>;
+  enforceAdmin: (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => Promise<void>;
   validateLogin: (
     req: Request,
     res: Response,
