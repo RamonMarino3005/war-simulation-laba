@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS army (
 -- ==========================
 CREATE TABLE IF NOT EXISTS unitType (
     id SERIAL PRIMARY KEY,
-    type VARCHAR CHECK (type IN ('infantry', 'artillery', 'tank')),
+    type VARCHAR CHECK (type IN ('infantry', 'artillery', 'tank')) UNIQUE NOT NULL,
     base_health INT NOT NULL,
     strength INT NOT NULL,
     defense INT NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS armyUnit (
 -- ==========================
 CREATE TABLE IF NOT EXISTS strategy (
     id SERIAL PRIMARY KEY,
-    name VARCHAR NOT NULL,
+    name VARCHAR NOT NULL UNIQUE,
     offensive_bonus FLOAT,
     defensive_bonus FLOAT
 );
@@ -96,7 +96,7 @@ VALUES
   ('Balanced', 5, 5),
   ('Guerilla Tactics', 7, 3),
   ('Blitzkrieg', 12, 2)
-ON CONFLICT (id) DO NOTHING;
+ON CONFLICT (name) DO NOTHING;
 
 -- =====================================
 -- Seed: unitType
@@ -106,7 +106,7 @@ VALUES
   ('infantry', 100, 10, 5, 50),
   ('artillery', 80, 20, 3, 100),
   ('tank', 200, 30, 20, 300)
-ON CONFLICT (id) DO NOTHING;
+ON CONFLICT (type) DO NOTHING;
 
 -- =====================================
 -- Seed: unitEffectiveness
