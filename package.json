@@ -10,6 +10,7 @@
     "copy-assets": "cpx \"src/**/*.{json,html,css,sql}\" dist/",
     "start": "node dist/server.js",
     "build": "tsc && npm run copy-assets",
+    "serve": "npm run build && npm run start",
     "dev": "node  --loader ts-node/esm src/server.ts"
   },
   "repository": {
