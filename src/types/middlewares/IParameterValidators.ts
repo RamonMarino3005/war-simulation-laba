@@ -4,4 +4,7 @@ export interface IParameterValidators {
   validateUUIDParam(
     paramName: string
   ): (req: Request, res: Response, next: NextFunction) => Promise<void>;
+  checkNumericParam(
+    paramName: string
+  ): (req: Request, res: Response, next: NextFunction) => void;
 }

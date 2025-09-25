@@ -19,4 +19,16 @@ export class ParameterValidators implements IParameterValidators {
       next();
     };
   }
+
+  checkNumericParam = (paramName: string) => {
+    return (req: Request, res: Response, next: NextFunction) => {
+      const value = req.params[paramName];
+      const num = Number(value);
+      if (isNaN(num)) {
+        return res.status(400).json({ error: `Invalid ${paramName}` });
+      }
+
+      next();
+    };
+  };
 }
