@@ -11,6 +11,7 @@ import { Payload } from "types/services/IAuthService.js";
 import { ArmyService } from "./services/armyService.js";
 import { ArmyModel } from "./models/armyModel.js";
 import { ArmyMiddleware } from "./middlewares/armyMiddlewares.js";
+import { ParameterValidators } from "./middlewares/parameterValidators.js";
 
 const accessSecret = "my-secret";
 const refreshSecret = "refresh-secret";
@@ -29,6 +30,7 @@ const armyService = new ArmyService(armyModel);
 
 const authMiddlewares = new AuthMiddleware(authService);
 const armyMiddlewares = new ArmyMiddleware();
+const parameterValidators = new ParameterValidators();
 
 (async () => {
   try {
@@ -48,6 +50,7 @@ const armyMiddlewares = new ArmyMiddleware();
       armyService,
       authMiddlewares,
       armyMiddlewares,
+      parameterValidators,
     });
   } catch (error) {
     console.error("Error initializing application:", error);
