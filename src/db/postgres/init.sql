@@ -15,7 +15,6 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS army (
     id UUID PRIMARY KEY,
     name VARCHAR NOT NULL,
-    morale FLOAT,
     resources INT,
     owner_id UUID NOT NULL REFERENCES users(user_id)
 );
