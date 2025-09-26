@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS unitType (
 CREATE TABLE IF NOT EXISTS armyUnit (
     army_id UUID REFERENCES army(id) ON DELETE CASCADE,
     unit_type_id INT REFERENCES unitType(id) ON DELETE CASCADE,
-    health INT NOT NULL,
+    quantity INT NOT NULL,
     PRIMARY KEY (army_id, unit_type_id)
 );
 
