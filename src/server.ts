@@ -15,28 +15,42 @@ import { ParameterValidators } from "./middlewares/parameterValidators.js";
 import { UnitTypeModel } from "./models/unitTypeModel.js";
 import { UnitTypeService } from "./services/unitTypeService.js";
 import { UnitTypeMiddleware } from "./middlewares/unitTypeMiddleware.js";
+import { ArmyUnitModel } from "./models/armyUnitModel.js";
+import { ArmyUnitService } from "./services/armyUnitService.js";
+import { ArmyUnitMiddleware } from "./middlewares/armyUnitMiddlewares.js";
 
 const accessSecret = "my-secret";
 const refreshSecret = "refresh-secret";
 
-// Initialize dependencies
+/** Initialize dependencies */
 
+// JWT and Refresh Token Storage
+const jwtProvider = new JwtProvider<Payload>(accessSecret, refreshSecret);
+const refreshStorage = new RefreshStorage();
+
+// Models
 const userModel = new UserModel(db);
 const armyModel = new ArmyModel(db);
 const unitTypeModel = new UnitTypeModel(db);
+const armyUnitModel = new ArmyUnitModel(db);
 
-const jwtProvider = new JwtProvider<Payload>(accessSecret, refreshSecret);
-const refreshStorage = new RefreshStorage();
-const authService = new AuthService(userModel, jwtProvider, refreshStorage);
-
+// Services
 const userService = new UserService(userModel);
 const armyService = new ArmyService(armyModel);
 const unitTypeService = new UnitTypeService(unitTypeModel);
+const armyUnitService = new ArmyUnitService(
+  armyUnitModel,
+  armyService,
+  unitTypeService
+);
+const authService = new AuthService(userModel, jwtProvider, refreshStorage);
 
+// Middlewares
 const authMiddlewares = new AuthMiddleware(authService);
 const armyMiddlewares = new ArmyMiddleware();
 const unitTypeMiddlewares = new UnitTypeMiddleware();
 const parameterValidators = new ParameterValidators();
+const armyUnitMiddlewares = new ArmyUnitMiddleware();
 
 (async () => {
   try {
@@ -55,10 +69,12 @@ const parameterValidators = new ParameterValidators();
       userService,
       armyService,
       unitTypeService,
+      armyUnitService,
       authMiddlewares,
       armyMiddlewares,
       unitTypeMiddlewares,
       parameterValidators,
+      armyUnitMiddlewares,
     });
   } catch (error) {
     console.error("Error initializing application:", error);

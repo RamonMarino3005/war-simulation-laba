@@ -12,6 +12,9 @@ import { IParameterValidators } from "types/middlewares/IParameterValidators.js"
 import { IUnitTypeService } from "types/services/IUnitTypeService.js";
 import { createUnitTypeRouter } from "./routes/gameRoutes/unitTypesRoutes.js";
 import { IUnitTypeMiddleware } from "types/middlewares/IUnitTypeMiddleware.js";
+import { IArmyUnitService } from "types/services/IArmyUnitService.js";
+import { IArmyUnitMiddleware } from "types/middlewares/IArmyUnitMiddleware.js";
+import { createArmyUnitRouter } from "./routes/gameRoutes/armyUnitRouter.js";
 
 dotenv.config();
 
@@ -20,19 +23,23 @@ export const createApp = ({
   userService,
   armyService,
   unitTypeService,
+  armyUnitService,
   authMiddlewares,
   armyMiddlewares,
   unitTypeMiddlewares,
   parameterValidators,
+  armyUnitMiddlewares,
 }: {
   authService: IAuthService;
   userService: IUserService;
   armyService: IArmyService;
   unitTypeService: IUnitTypeService;
+  armyUnitService: IArmyUnitService;
   authMiddlewares: IAuthMiddleware;
   armyMiddlewares: IArmyMiddleware;
   unitTypeMiddlewares: IUnitTypeMiddleware;
   parameterValidators: IParameterValidators;
+  armyUnitMiddlewares: IArmyUnitMiddleware;
 }) => {
   const PORT = process.env.PORT || 3000;
 
@@ -65,6 +72,17 @@ export const createApp = ({
       parameterValidators
     )
   );
+
+  app.use(
+    "/army-units",
+    createArmyUnitRouter(
+      armyUnitService,
+      authMiddlewares,
+      armyUnitMiddlewares,
+      parameterValidators
+    )
+  );
+
   app.use(
     "/unit-types",
     createUnitTypeRouter(
