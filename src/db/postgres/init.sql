@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS army (
 -- ==========================
 CREATE TABLE IF NOT EXISTS unitType (
     id SERIAL PRIMARY KEY,
-    type VARCHAR CHECK (type IN ('infantry', 'artillery', 'tank')) UNIQUE NOT NULL,
+    type VARCHAR UNIQUE NOT NULL,
     base_health INT NOT NULL,
     strength INT NOT NULL,
     defense INT NOT NULL,
