@@ -12,6 +12,9 @@ import { ArmyService } from "./services/armyService.js";
 import { ArmyModel } from "./models/armyModel.js";
 import { ArmyMiddleware } from "./middlewares/armyMiddlewares.js";
 import { ParameterValidators } from "./middlewares/parameterValidators.js";
+import { UnitTypeModel } from "./models/unitTypeModel.js";
+import { UnitTypeService } from "./services/unitTypeService.js";
+import { UnitTypeMiddleware } from "./middlewares/unitTypeMiddleware.js";
 
 const accessSecret = "my-secret";
 const refreshSecret = "refresh-secret";
@@ -20,6 +23,7 @@ const refreshSecret = "refresh-secret";
 
 const userModel = new UserModel(db);
 const armyModel = new ArmyModel(db);
+const unitTypeModel = new UnitTypeModel(db);
 
 const jwtProvider = new JwtProvider<Payload>(accessSecret, refreshSecret);
 const refreshStorage = new RefreshStorage();
@@ -27,9 +31,11 @@ const authService = new AuthService(userModel, jwtProvider, refreshStorage);
 
 const userService = new UserService(userModel);
 const armyService = new ArmyService(armyModel);
+const unitTypeService = new UnitTypeService(unitTypeModel);
 
 const authMiddlewares = new AuthMiddleware(authService);
 const armyMiddlewares = new ArmyMiddleware();
+const unitTypeMiddlewares = new UnitTypeMiddleware();
 const parameterValidators = new ParameterValidators();
 
 (async () => {
@@ -48,8 +54,10 @@ const parameterValidators = new ParameterValidators();
       authService,
       userService,
       armyService,
+      unitTypeService,
       authMiddlewares,
       armyMiddlewares,
+      unitTypeMiddlewares,
       parameterValidators,
     });
   } catch (error) {
