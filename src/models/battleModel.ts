@@ -1,5 +1,9 @@
 import { DB_Controller } from "types/db/db_types.js";
-import { Battle, BattleArmy } from "types/entities/battleTypes.js";
+import {
+  Battle,
+  BattleArmy,
+  BattleReportResponseDB,
+} from "types/entities/battleTypes.js";
 import { IBattleModel } from "types/models/IBattleModel.js";
 
 export class BattleModel implements IBattleModel {
@@ -71,7 +75,7 @@ export class BattleModel implements IBattleModel {
     return response.rows[0] || null;
   }
 
-  async getReport(battleId: string): Promise<any> {
+  async getReport(battleId: string): Promise<BattleReportResponseDB[] | null> {
     console.log("Getting report for battle ID:", battleId);
     const response = await this.db.query(
       `SELECT 
@@ -82,13 +86,15 @@ export class BattleModel implements IBattleModel {
             ba.role,
             ba.outcome,
             ba.casualties,
+            ba.starting_strength,
+            ba.final_strength,
             s.name AS strategy_name,
 
             a.id AS army_id,
             a.name AS army_name,
             a.owner_id AS army_owner,
 
-			u.user_id AS user_id,
+			  u.user_id AS user_id,
     		u.username AS user_name,
     		u.email AS user_email
 

@@ -1,4 +1,10 @@
-import { ArmyState, Battle, BattleLog } from "types/entities/battleTypes.js";
+import {
+  ArmyState,
+  Battle,
+  BattleLog,
+  BattleReport,
+  Winner,
+} from "types/entities/battleTypes.js";
 import { IArmyModel } from "types/models/IArmyModel.js";
 import { IBattleModel } from "types/models/IBattleModel.js";
 import { IArmyService } from "types/services/IArmyService.js";
@@ -162,6 +168,9 @@ export class BattleService implements IBattleService {
 
     // Structure battle log
     const battleLog: BattleLog = {
+      battleId: battle.id,
+      date: battle.date,
+      location: battle.location,
       winner: winnerArmy
         ? {
             army_id: winnerArmy.id,
@@ -169,8 +178,16 @@ export class BattleService implements IBattleService {
             role: winnerRole,
           }
         : "draw",
-      attackerStats,
-      defenderStats,
+      attackerStats: {
+        ...attackerStats,
+        army_id: attackerArmy.id,
+        name: attackerArmy.name,
+      },
+      defenderStats: {
+        ...defenderStats,
+        army_id: defenderArmy.id,
+        name: defenderArmy.name,
+      },
       total_rounds: battleResult.rounds.length,
       rounds: battleResult.rounds,
     };
@@ -194,33 +211,56 @@ export class BattleService implements IBattleService {
     return await this.battleModel.delete(battleId);
   }
 
-  async getBattleReport(battleId: string): Promise<any> {
+  async getBattleReport(battleId: string): Promise<BattleReport | null> {
     const rows = await this.battleModel.getReport(battleId);
     if (!rows) {
       return null;
     }
+
+    const winner: Winner =
+      rows[0].outcome === "won"
+        ? {
+            army_id: rows[0].army_id,
+            name: rows[0].army_name,
+            role: "attacker",
+          }
+        : rows[1].outcome === "won"
+        ? {
+            army_id: rows[1].army_id,
+            name: rows[1].army_name,
+            role: "defender",
+          }
+        : "draw";
+
     const report = {
       battleId,
       date: rows[0].date,
       location: rows[0].location,
+      winner,
       armies: [
         {
-          armyName: rows[0].army_name,
-          armyOwner: rows[0].user_name,
+          army_id: rows[0].army_id,
+          name: rows[0].army_name,
+          army_owner: rows[0].user_name,
           strategy: rows[0].strategy_name,
+          starting_strength: rows[0].starting_strength,
+          final_strength: rows[0].final_strength,
+          casualties: rows[0].casualties,
+          role: rows[0].role,
+          outcome: rows[0].outcome,
         },
         {
-          armyName: rows[1].army_name,
-          armyOwner: rows[1].user_name,
+          army_id: rows[1].army_id,
+          name: rows[1].army_name,
+          army_owner: rows[1].user_name,
           strategy: rows[1].strategy_name,
+          starting_strength: rows[1].starting_strength,
+          final_strength: rows[1].final_strength,
+          casualties: rows[1].casualties,
+          role: rows[1].role,
+          outcome: rows[1].outcome,
         },
       ],
-      attacker:
-        rows[0].role === "attacker" ? rows[0].army_name : rows[1].army_name,
-      defender:
-        rows[0].role === "defender" ? rows[0].army_name : rows[1].army_name,
-      winner: rows[0].outcome === "won" ? rows[0].army_name : rows[1].army_name,
-      loser: rows[0].outcome === "lost" ? rows[0].army_name : rows[1].army_name,
     };
     return report;
   }

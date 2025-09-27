@@ -69,6 +69,9 @@ export type BattleResult = {
 };
 
 export type BattleLog = {
+  battleId: string;
+  date: Date;
+  location: string;
   winner:
     | {
         army_id: string;
@@ -76,8 +79,52 @@ export type BattleLog = {
         name: string;
       }
     | "draw";
-  attackerStats: BattleArmyStats;
-  defenderStats: BattleArmyStats;
+  attackerStats: BattleArmyStats & { army_id: string; name: string };
+  defenderStats: BattleArmyStats & { army_id: string; name: string };
   total_rounds: number;
   rounds: RoundLog[];
+};
+
+export type BattleReport = {
+  battleId: string;
+  date: Date;
+  location: string;
+  winner: Winner;
+  armies: {
+    army_id: string;
+    name: string;
+    army_owner: string;
+    strategy: string;
+    starting_strength: number;
+    final_strength: number;
+    casualties: number;
+    role: "attacker" | "defender";
+    outcome: "won" | "lost" | "draw";
+  }[];
+};
+
+export type Winner =
+  | {
+      army_id: string;
+      role: "attacker" | "defender";
+      name: string;
+    }
+  | "draw";
+
+export type BattleReportResponseDB = {
+  battle_id: string;
+  date: Date;
+  location: string;
+  army_id: string;
+  army_name: string;
+  army_owner: string;
+  strategy_name: string;
+  starting_strength: number;
+  final_strength: number;
+  casualties: number;
+  role: "attacker" | "defender";
+  outcome: "won" | "lost" | "draw";
+  user_name: string;
+  user_email: string;
+  user_id: string;
 };

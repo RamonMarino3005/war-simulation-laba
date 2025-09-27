@@ -1,4 +1,8 @@
-import { Battle, BattleArmy } from "types/entities/battleTypes.js";
+import {
+  Battle,
+  BattleArmy,
+  BattleReportResponseDB,
+} from "types/entities/battleTypes.js";
 
 export interface IBattleModel {
   createBattle(location: string): Promise<any>;
@@ -22,5 +26,5 @@ export interface IBattleModel {
 
   delete(battleId: string): Promise<void>;
 
-  getReport(battleId: string): Promise<any>;
+  getReport(battleId: string): Promise<BattleReportResponseDB[] | null>;
 }
