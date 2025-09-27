@@ -18,6 +18,9 @@ import { UnitTypeMiddleware } from "./middlewares/unitTypeMiddleware.js";
 import { ArmyUnitModel } from "./models/armyUnitModel.js";
 import { ArmyUnitService } from "./services/armyUnitService.js";
 import { ArmyUnitMiddleware } from "./middlewares/armyUnitMiddlewares.js";
+import { StrategyModel } from "./models/strategyModel.js";
+import { StrategyService } from "./services/strategyService.js";
+import { StrategyMiddleware } from "./middlewares/strategyMiddleware.js";
 
 const accessSecret = "my-secret";
 const refreshSecret = "refresh-secret";
@@ -33,11 +36,13 @@ const userModel = new UserModel(db);
 const armyModel = new ArmyModel(db);
 const unitTypeModel = new UnitTypeModel(db);
 const armyUnitModel = new ArmyUnitModel(db);
+const strategyModel = new StrategyModel(db);
 
 // Services
 const userService = new UserService(userModel);
 const armyService = new ArmyService(armyModel);
 const unitTypeService = new UnitTypeService(unitTypeModel);
+const strategyService = new StrategyService(strategyModel);
 const armyUnitService = new ArmyUnitService(
   armyUnitModel,
   armyService,
@@ -51,6 +56,7 @@ const armyMiddlewares = new ArmyMiddleware();
 const unitTypeMiddlewares = new UnitTypeMiddleware();
 const parameterValidators = new ParameterValidators();
 const armyUnitMiddlewares = new ArmyUnitMiddleware();
+const strategyMiddlewares = new StrategyMiddleware();
 
 (async () => {
   try {
@@ -70,11 +76,13 @@ const armyUnitMiddlewares = new ArmyUnitMiddleware();
       armyService,
       unitTypeService,
       armyUnitService,
+      strategyService,
       authMiddlewares,
       armyMiddlewares,
       unitTypeMiddlewares,
       parameterValidators,
       armyUnitMiddlewares,
+      strategyMiddlewares,
     });
   } catch (error) {
     console.error("Error initializing application:", error);
