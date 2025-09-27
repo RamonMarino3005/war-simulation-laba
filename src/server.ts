@@ -21,6 +21,9 @@ import { ArmyUnitMiddleware } from "./middlewares/armyUnitMiddlewares.js";
 import { StrategyModel } from "./models/strategyModel.js";
 import { StrategyService } from "./services/strategyService.js";
 import { StrategyMiddleware } from "./middlewares/strategyMiddleware.js";
+import { BattleModel } from "./models/battleModel.js";
+import { BattleService } from "./services/Battle/battleService.js";
+import { BattleMiddleware } from "./middlewares/battleMiddleware.js";
 
 const accessSecret = "my-secret";
 const refreshSecret = "refresh-secret";
@@ -37,8 +40,10 @@ const armyModel = new ArmyModel(db);
 const unitTypeModel = new UnitTypeModel(db);
 const armyUnitModel = new ArmyUnitModel(db);
 const strategyModel = new StrategyModel(db);
+const battleModel = new BattleModel(db);
 
 // Services
+const authService = new AuthService(userModel, jwtProvider, refreshStorage);
 const userService = new UserService(userModel);
 const armyService = new ArmyService(armyModel);
 const unitTypeService = new UnitTypeService(unitTypeModel);
@@ -48,7 +53,13 @@ const armyUnitService = new ArmyUnitService(
   armyService,
   unitTypeService
 );
-const authService = new AuthService(userModel, jwtProvider, refreshStorage);
+const battleService = new BattleService(
+  battleModel,
+  armyService,
+  strategyService,
+  armyUnitService,
+  unitTypeService
+);
 
 // Middlewares
 const authMiddlewares = new AuthMiddleware(authService);
@@ -57,6 +68,7 @@ const unitTypeMiddlewares = new UnitTypeMiddleware();
 const parameterValidators = new ParameterValidators();
 const armyUnitMiddlewares = new ArmyUnitMiddleware();
 const strategyMiddlewares = new StrategyMiddleware();
+const battleMiddlewares = new BattleMiddleware();
 
 (async () => {
   try {
@@ -77,11 +89,13 @@ const strategyMiddlewares = new StrategyMiddleware();
       unitTypeService,
       armyUnitService,
       strategyService,
+      battleService,
       authMiddlewares,
       armyMiddlewares,
       unitTypeMiddlewares,
       parameterValidators,
       armyUnitMiddlewares,
+      battleMiddlewares,
       strategyMiddlewares,
     });
   } catch (error) {
