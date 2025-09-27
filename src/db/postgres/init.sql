@@ -91,11 +91,11 @@ CREATE TABLE IF NOT EXISTS unitEffectiveness (
 -- =====================================
 INSERT INTO strategy (name, offensive_bonus, defensive_bonus)
 VALUES
-  ('Aggressive', 10, 0),
-  ('Defensive', 0, 10),
-  ('Balanced', 5, 5),
-  ('Guerilla Tactics', 7, 3),
-  ('Blitzkrieg', 12, 2)
+  ('Aggressive', 1.5, 0.5),
+  ('Defensive', 0.5, 1.5),
+  ('Balanced', 1, 1),
+  ('Guerilla Tactics', 1.2, 0.8),
+  ('Blitzkrieg', 1.3, 0.7)
 ON CONFLICT (name) DO NOTHING;
 
 -- =====================================
