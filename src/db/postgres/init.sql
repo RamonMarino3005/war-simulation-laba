@@ -71,7 +71,6 @@ CREATE TABLE IF NOT EXISTS battleArmy (
     outcome VARCHAR CHECK (outcome IN ('won', 'lost', 'drew')),
     starting_strength INT,
     final_strength INT,
-    moral_effect INT,
     casualties INT,
     PRIMARY KEY (battle_id, army_id)
 );
