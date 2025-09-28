@@ -10,7 +10,6 @@ import {
   createResult,
   getArmyDetails,
 } from "./utils.js";
-import { ar } from "zod/locales";
 
 export function simulateBattle(
   armyA: ArmyState,

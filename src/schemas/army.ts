@@ -1,4 +1,4 @@
-import z, { ZodError } from "zod";
+import z from "zod";
 
 export const armySchema = z.object({
   name: z

@@ -1,5 +1,5 @@
 // db/index.js
-import pg, { Pool, QueryConfig, QueryResult, Client } from "pg";
+import { Pool, QueryConfig, QueryResult, Client } from "pg";
 import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";

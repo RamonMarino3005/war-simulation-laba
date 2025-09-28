@@ -31,7 +31,7 @@ export class AuthMiddleware implements IAuthMiddleware {
     }
 
     console.log("Verified Payload:", payload);
-    const { exp, ...userData } = payload;
+    const { exp: _, ...userData } = payload;
     req.session = userData;
 
     next();

@@ -5,7 +5,6 @@ import {
   BattleReport,
   Winner,
 } from "types/entities/battleTypes.js";
-import { IArmyModel } from "types/models/IArmyModel.js";
 import { IBattleModel } from "types/models/IBattleModel.js";
 import { IArmyService } from "types/services/IArmyService.js";
 import { IArmyUnitService } from "types/services/IArmyUnitService.js";

@@ -1,4 +1,3 @@
-import { Army } from "types/entities/armyTypes.js";
 import { UnitInArmy } from "types/entities/armyUnitTypes.js";
 import {
   ArmyState,
@@ -20,12 +19,6 @@ export function calculateDamage(
 }
 
 export function applyDamage(defender: UnitInCombat, damage: number): number {
-  const log_defender = {
-    quantity: defender.quantity,
-    base_health: defender.base_health,
-    damage_buffer: defender.damage_buffer,
-  };
-
   let totalDamage = damage + defender.damage_buffer;
 
   const potentialCasualties = Math.floor(totalDamage / defender.total_health);

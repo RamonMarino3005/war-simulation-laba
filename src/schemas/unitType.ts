@@ -1,5 +1,4 @@
-import z, { optional, ZodError } from "zod";
-import { de } from "zod/locales";
+import z from "zod";
 
 export const unitTypeSchema = z.object({
   type: z
