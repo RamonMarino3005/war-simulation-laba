@@ -22,7 +22,7 @@ import { StrategyModel } from "./models/strategyModel.js";
 import { StrategyService } from "./services/strategyService.js";
 import { StrategyMiddleware } from "./middlewares/strategyMiddleware.js";
 import { BattleModel } from "./models/battleModel.js";
-import { BattleService } from "./services/battle/battleService.js";
+import { BattleService } from "./services/Battle/battleService.js";
 import { BattleMiddleware } from "./middlewares/battleMiddleware.js";
 
 const accessSecret = "my-secret";
