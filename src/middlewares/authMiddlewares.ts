@@ -40,12 +40,12 @@ export class AuthMiddleware implements IAuthMiddleware {
   extractToken = async (req: Request, res: Response, next: NextFunction) => {
     let token = null;
 
-    // 1. Check auth header for API clients
+    // Check auth header for API clients
     if (req.headers.authorization?.startsWith("Bearer ")) {
       token = req.headers.authorization.split(" ")[1];
     }
 
-    // 2. If no header, try cookie for browsers
+    // If no header, try cookie for browsers
     if (!token && req.cookies?.accessToken) {
       token = req.cookies.accessToken;
     }

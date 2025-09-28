@@ -1,4 +1,4 @@
-import { decode, sign } from "../../../src/utils/jwt/index.js";
+import { decode, sign } from "../index.js";
 
 describe("Decode", () => {
   it("Should decode the token payload", () => {

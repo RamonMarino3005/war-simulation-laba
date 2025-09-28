@@ -1,4 +1,4 @@
-import { verify, sign } from "../../../src/utils/jwt/index.js";
+import { verify, sign } from "../index.js";
 
 describe("verify", () => {
   const secret = "shhhh";

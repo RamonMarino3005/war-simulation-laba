@@ -5,11 +5,11 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "test:watch": "jest --watch",
     "copy-assets": "cpx \"src/**/*.{json,html,css,sql}\" dist/",
-    "start": "node dist/server.js",
-    "build": "tsc && npm run copy-assets",
+    "start": "node dist/src/server.js",
+    "build": "npm run copy-assets && tsc",
     "serve": "npm run build && npm run start",
     "dev": "node  --loader ts-node/esm src/server.ts"
   },
@@ -37,7 +37,7 @@
     "@types/pg": "^8.15.5",
     "cpx": "^1.5.0",
     "jest": "^30.0.5",
-    "ts-jest": "^29.4.1",
+    "ts-jest": "^29.4.4",
     "ts-node": "^10.9.2"
   }
 }

@@ -1,7 +1,7 @@
 import { AuthService } from "./services/authService.js";
 import createApp from "./app.js";
 import { JwtProvider } from "./utils/jwt/jwtProvider.js";
-import { RefreshStorage } from "./models/refreshModel.js";
+import { RefreshStorage } from "./models/refreshModel.mjs";
 import { db } from "./db/index.js";
 import { UserModel } from "./models/userModel.js";
 import { testConnection } from "./db/helpers.js";

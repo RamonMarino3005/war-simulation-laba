@@ -3,12 +3,10 @@
     "baseUrl": "./src",
     "module": "nodenext",
     "outDir": "dist",
-    "typeRoots": ["./types"],
     "target": "es6",
     "esModuleInterop": true
   },
   "ts-node": {
     "esm": true
-  },
-  "exclude": ["test"]
+  }
 }

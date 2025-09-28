@@ -1,5 +1,5 @@
-import { fromBase64 } from "../../../src/utils/jwt/decode.js";
-import { sign } from "../../../src/utils/jwt/index.js";
+import { fromBase64 } from "../decode.js";
+import { sign } from "../index.js";
 
 describe("sign", () => {
   const secret = "shhhh";
