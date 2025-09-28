@@ -5,6 +5,7 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
+    "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "copy-assets": "cpx \"src/**/*.{json,html,css,sql}\" dist/ ",
