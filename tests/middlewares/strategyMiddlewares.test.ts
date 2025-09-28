@@ -1,4 +1,4 @@
-import { StrategyMiddleware } from "../strategyMiddleware.js";
+import { StrategyMiddleware } from "../../src/middlewares/strategyMiddleware.js";
 import { Request, Response, NextFunction } from "express";
 
 describe("StrategyMiddleware", () => {

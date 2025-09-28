@@ -1,7 +1,7 @@
 import {
   createStrategySchema,
   updateStrategySchema,
-} from "../strategySchemas.js";
+} from "../../src/schemas/strategySchemas.js";
 
 describe("createStrategySchema", () => {
   const validData = {

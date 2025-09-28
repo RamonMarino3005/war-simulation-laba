@@ -1,4 +1,4 @@
-import { ArmyController } from "../armyController.js";
+import { ArmyController } from "../../src/controllers/armyController.js";
 
 describe("ArmyController", () => {
   let armyServiceMock: any;

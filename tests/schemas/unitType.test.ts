@@ -2,7 +2,7 @@ import {
   unitTypeSchema,
   effectivenessArraySchema,
   unitTypeCreateSchema,
-} from "../unitType.js";
+} from "../../src/schemas/unitType.js";
 
 describe("unitTypeSchema", () => {
   const validUnit = {

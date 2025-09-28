@@ -1,12 +1,19 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
-    "module": "nodenext",
-    "outDir": "dist",
     "target": "es6",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "rootDir": "./src",
+    "outDir": "dist",
+    "baseUrl": "./src",
     "esModuleInterop": true
   },
-  "ts-node": {
-    "esm": true
-  }
+  "include": ["src/**/*", "types/express"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "jest.config.ts"
+  ]
 }

@@ -1,6 +1,6 @@
 // src/services/__tests__/authService.test.ts
 import bcrypt from "bcrypt";
-import { AuthService } from "../authService.js";
+import { AuthService } from "../../src/services/authService.js";
 
 describe("AuthService", () => {
   let userModelMock: any;

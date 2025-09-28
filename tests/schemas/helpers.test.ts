@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { formatError } from "../helpers.js";
+import { formatError } from "../../src/schemas/helpers.js";
 
 describe("formatError", () => {
   const schema = z.object({
@@ -18,8 +18,8 @@ describe("formatError", () => {
       expect(formatted.properties).toHaveProperty("name");
       expect(formatted.properties).toHaveProperty("age");
       // The properties object should contain messages
-      expect(formatted.properties.name).toHaveProperty("errors");
-      expect(formatted.properties.age).toHaveProperty("errors");
+      expect(formatted.properties?.name).toHaveProperty("errors");
+      expect(formatted.properties?.age).toHaveProperty("errors");
     }
   });
 
@@ -30,8 +30,8 @@ describe("formatError", () => {
     expect(result.success).toBe(false);
     if (!result.success) {
       const formatted = formatError(result.error);
-      expect(formatted.properties.name.errors).toBeDefined();
-      expect(formatted.properties.age.errors).toBeDefined();
+      expect(formatted.properties?.name?.errors).toBeDefined();
+      expect(formatted.properties?.age?.errors).toBeDefined();
     }
   });
 });

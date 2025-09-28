@@ -1,4 +1,4 @@
-import { startBattleSchema } from "../battle.js";
+import { startBattleSchema } from "../../src/schemas/battle.js";
 
 describe("startBattleSchema", () => {
   const validData = {

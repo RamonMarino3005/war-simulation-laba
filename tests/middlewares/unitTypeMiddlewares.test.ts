@@ -1,4 +1,4 @@
-import { UnitTypeMiddleware } from "../unitTypeMiddleware.js";
+import { UnitTypeMiddleware } from "../../src/middlewares/unitTypeMiddleware.js";
 import { Request, Response, NextFunction } from "express";
 
 describe("UnitTypeMiddleware", () => {

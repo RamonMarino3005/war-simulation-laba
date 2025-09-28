@@ -2,7 +2,7 @@ import { z } from "zod";
 import {
   updateArmyUnitBodySchema,
   createArmyUnitBodySchema,
-} from "../armyUnit.js";
+} from "../../src/schemas/armyUnit.js";
 
 describe("updateArmyUnitBodySchema", () => {
   it("should pass with a valid quantity", () => {

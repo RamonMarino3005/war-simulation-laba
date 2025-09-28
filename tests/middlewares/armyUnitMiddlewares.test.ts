@@ -1,4 +1,4 @@
-import { ArmyUnitMiddleware } from "../armyUnitMiddlewares.js";
+import { ArmyUnitMiddleware } from "../../src/middlewares/armyUnitMiddlewares.js";
 import { NextFunction, Request, Response } from "express";
 
 describe("ArmyUnitMiddleware", () => {

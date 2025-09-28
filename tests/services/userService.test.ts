@@ -1,6 +1,6 @@
 // src/services/__tests__/userService.test.ts
 import { StoredUser } from "types/entities/userTypes.js";
-import { UserService } from "../userService.js";
+import { UserService } from "../../src/services/userService.js";
 
 describe("UserService", () => {
   let userModelMock: any;

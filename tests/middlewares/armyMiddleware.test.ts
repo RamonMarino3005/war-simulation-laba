@@ -1,4 +1,4 @@
-import { ArmyMiddleware } from "../armyMiddlewares.js"; // adjust path
+import { ArmyMiddleware } from "../../src/middlewares/armyMiddlewares.js"; // adjust path
 import { Request, Response, NextFunction } from "express";
 
 describe("ArmyMiddleware", () => {

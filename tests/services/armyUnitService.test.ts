@@ -1,6 +1,6 @@
 // src/services/__tests__/armyUnitService.test.ts
 import { UnitInArmy } from "types/entities/armyUnitTypes.js";
-import { ArmyUnitService } from "../armyUnitService.js";
+import { ArmyUnitService } from "../../src/services/armyUnitService.js";
 
 describe("ArmyUnitService", () => {
   let armyUnitModelMock: any;

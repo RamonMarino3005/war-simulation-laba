@@ -3,7 +3,7 @@ import {
   armySchema,
   zodValidateArmyCreation,
   zodValidateArmyFields,
-} from "../army.js";
+} from "../../src/schemas/army.js";
 
 describe("Army Schemas", () => {
   const validArmy = {

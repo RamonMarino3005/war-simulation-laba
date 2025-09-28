@@ -1,5 +1,5 @@
 // src/services/__tests__/strategyService.test.ts
-import { StrategyService } from "../strategyService.js";
+import { StrategyService } from "../../src/services/strategyService.js";
 
 describe("StrategyService", () => {
   let strategyModelMock: any;

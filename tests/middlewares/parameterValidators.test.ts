@@ -1,4 +1,4 @@
-import { ParameterValidators } from "../parameterValidators.js";
+import { ParameterValidators } from "../../src/middlewares/parameterValidators.js";
 import { Request, Response, NextFunction } from "express";
 
 describe("ParameterValidators", () => {

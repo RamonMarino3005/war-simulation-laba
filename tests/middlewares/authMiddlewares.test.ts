@@ -1,4 +1,4 @@
-import { AuthMiddleware } from "../authMiddlewares.js";
+import { AuthMiddleware } from "../../src/middlewares/authMiddlewares.js";
 import { IAuthService } from "types/services/IAuthService.js";
 import { NextFunction, Request, Response } from "express";
 

@@ -1,7 +1,7 @@
-import { BattleMiddleware } from "../battleMiddleware.js";
+import { BattleMiddleware } from "../../src/middlewares/battleMiddleware.js";
 import { NextFunction, Request, Response } from "express";
 
-jest.mock("../../schemas/helpers.js", () => ({
+jest.mock("../../src/schemas/helpers.js", () => ({
   formatError: jest.fn((error) => ({ properties: { mocked: "error" } })),
 }));
 
