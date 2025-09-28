@@ -1,5 +1,6 @@
+"use strict";
 // __tests__/calculateDamage.test.ts
-import { UnitInArmy } from "types/entities/armyUnitTypes.js";
+import { UnitInArmy } from "../../../src/types/entities/armyUnitTypes.js";
 import {
   calculateDamage,
   applyDamage,
@@ -14,10 +15,9 @@ import {
   BattleResult,
   RoundLog,
   UnitInCombat,
-} from "types/entities/battleTypes.js";
-import { EffectivenessRelation } from "types/entities/unitTypes.js";
-import { de } from "zod/locales";
-import { Strategy } from "types/entities/strategyTypes.js";
+} from "../../../src/types/entities/battleTypes.js";
+import { EffectivenessRelation } from "../../../src/types/entities/unitTypes.js";
+import { Strategy } from "../../../src/types/entities/strategyTypes.js";
 
 describe("calculateDamage", () => {
   let attacker: UnitInArmy;
@@ -431,8 +431,43 @@ describe("getArmyDetails", () => {
 });
 
 describe("createResult", () => {
-  let defaultArmyState: ArmyState;
-  let defaultUnitInCombat: UnitInCombat;
+  let defaultArmyState: ArmyState = {
+    units: [],
+    armyId: crypto.randomUUID(),
+    role: "attacker",
+  };
+
+  let defaultUnitInCombat: UnitInCombat = {
+    unit_type_id: 1,
+    type: "infantry",
+    cost: 100,
+    quantity: 10,
+    base_health: 50,
+    strength: 20,
+    defense: 10,
+    total_health: 60,
+    damage_buffer: 0,
+  };
+
+  beforeAll(() => {
+    defaultArmyState = {
+      units: [],
+      armyId: crypto.randomUUID(),
+      role: "attacker",
+    };
+
+    defaultUnitInCombat = {
+      unit_type_id: 1,
+      type: "infantry",
+      cost: 100,
+      quantity: 10,
+      base_health: 50,
+      strength: 20,
+      defense: 10,
+      total_health: 60,
+      damage_buffer: 0,
+    };
+  });
 
   beforeEach(() => {
     defaultArmyState = {

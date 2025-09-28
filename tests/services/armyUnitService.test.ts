@@ -1,5 +1,5 @@
 // src/services/__tests__/armyUnitService.test.ts
-import { UnitInArmy } from "types/entities/armyUnitTypes.js";
+import { UnitInArmy } from "../../src/types/entities/armyUnitTypes.js";
 import { ArmyUnitService } from "../../src/services/armyUnitService.js";
 
 describe("ArmyUnitService", () => {

@@ -1,5 +1,5 @@
 // src/services/__tests__/unitTypeService.test.ts
-import { UnitType } from "types/entities/unitTypes.js";
+import { UnitType } from "../../src/types/entities/unitTypes.js";
 import { UnitTypeService } from "../../src/services/unitTypeService.js";
 
 describe("UnitTypeService", () => {

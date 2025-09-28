@@ -1,5 +1,5 @@
 // src/services/__tests__/userService.test.ts
-import { StoredUser } from "types/entities/userTypes.js";
+import { StoredUser } from "../../src/types/entities/userTypes.js";
 import { UserService } from "../../src/services/userService.js";
 
 describe("UserService", () => {

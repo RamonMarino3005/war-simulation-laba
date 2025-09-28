@@ -1,5 +1,5 @@
 import { AuthMiddleware } from "../../src/middlewares/authMiddlewares.js";
-import { IAuthService } from "types/services/IAuthService.js";
+import { IAuthService } from "../../src/types/services/IAuthService.js";
 import { NextFunction, Request, Response } from "express";
 
 describe("AuthMiddleware", () => {
@@ -70,7 +70,7 @@ describe("AuthMiddleware", () => {
 
   describe("getSession", () => {
     it("returns 401 if no token", async () => {
-      mockReq.token = null;
+      mockReq.token = undefined;
 
       await middleware.getSession(
         mockReq as Request,
