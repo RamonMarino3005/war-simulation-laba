@@ -19,11 +19,11 @@ export const createUserRouter = (
 
   router.use(extractToken, getSession);
 
-  router.get("/list-users", enforceAdmin, userController.getUsers);
+  router.get("/", enforceAdmin, userController.getUsers);
 
-  router.get("/user/:id", validateUUID, userController.getUserById);
+  router.get("/:id", validateUUID, userController.getUserById);
 
-  router.post("/delete/:id", validateUUID, userController.deleteUser);
+  router.delete("/:id", validateUUID, userController.deleteUser);
 
   return router;
 };
