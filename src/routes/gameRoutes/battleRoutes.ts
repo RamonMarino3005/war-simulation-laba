@@ -37,7 +37,7 @@ export const createBattleRouter = (
     battleController.getBattlesByArmyId
   );
 
-  router.post("/start", validateStartBattle, battleController.startBattle);
+  router.post("/", validateStartBattle, battleController.startBattle);
 
   router.use(enforceAdmin);
 
