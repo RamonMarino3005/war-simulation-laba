@@ -8,7 +8,7 @@ import {
   addPerks,
   getArmyDetails,
   createResult,
-} from "../../../src/services/battle/utils.js";
+} from "../../../src/services/battles/utils.js";
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import {
   ArmyState,
