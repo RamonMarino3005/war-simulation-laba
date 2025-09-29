@@ -35,21 +35,17 @@ export const createStrategyRouter = (
 
   router.use(extractToken, getSession, enforceAdmin);
 
-  router.post(
-    "/add-strategy",
-    validateCreateBody,
-    strategyController.addStrategy
-  );
+  router.post("/", validateCreateBody, strategyController.addStrategy);
 
   router.put(
-    "/update/:strategyId",
+    "/:strategyId",
     validateStrategyIdParam,
     validateUpdateBody,
     strategyController.updateStrategy
   );
 
   router.delete(
-    "/delete/:strategyId",
+    "/:strategyId",
     validateStrategyIdParam,
     validateStrategyIdParam,
     strategyController.removeStrategy
