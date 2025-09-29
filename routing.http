@@ -1,26 +1,16 @@
-### Hello Friend!
-GET http://localhost:3000/
- 
-### Get all Users
-GET http://localhost:3000/users/list-users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwZmU3NTU0Yi1kZWRjLTRkZjEtODIyOS0wYmM2YzAwNjcwZGQiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTQxOTMzOH0=.bqCP3RJdUAQpLEXxEwTJb6piV/SbuCHV6wv7ERf6KP0=
 
-### Get User by ID
-GET http://localhost:3000/users/user/e66f5291-4e5d-4ca9-ad3c-dd31d5bdd616
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZTYzNmRkMi1mMTIxLTQ1NWYtYWYyOS01ODU2MDE5NTI0OTUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTUyNzk5MH0=.Mun3uJT7Oid8daQ0fou7YDySGZysUMopIZguddeZJJg=
-
-### Get User by ID - Admin Token
-GET http://localhost:3000/users/user/57b18b5a-88ff-48f2-aebb-159ebf88e81d
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwZmU3NTU0Yi1kZWRjLTRkZjEtODIyOS0wYmM2YzAwNjcwZGQiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTQxOTMzOH0=.bqCP3RJdUAQpLEXxEwTJb6piV/SbuCHV6wv7ERf6KP0=
+#######################
+# AUTH ENPOINTS
+######################
 
 ### Register User
 POST http://localhost:3000/auth/sign-up
 Content-Type: application/json
 
 {
-    "username": "RamonMarino",
-    "email": "ramonmarino@outlook.com",
-    "password": "12345678"
+    "username": "TestUser",
+    "email": "test@example.com",
+    "password": "1234578"
 }
 
 ### Login 
@@ -44,67 +34,94 @@ Content-Type: application/json
 ### Logout
 POST http://localhost:3000/auth/logout
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwZmU3NTU0Yi1kZWRjLTRkZjEtODIyOS0wYmM2YzAwNjcwZGQiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTQxOTMzOH0=.bqCP3RJdUAQpLEXxEwTJb6piV/SbuCHV6wv7ERf6KP0=
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwZDhkNDhhMi0xM2ExLTRkOWMtYmQyZi02OWYxYzFhMjhjZDkiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsImV4cCI6MTc1OTc2MDM4M30=.vgLNR50inLEsoEFRu6f5v36AXyoyAFDEOaQ6ojcGa9U=
 
 ### Get Protected Route
 GET http://localhost:3000/auth/protected
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZTYzNmRkMi1mMTIxLTQ1NWYtYWYyOS01ODU2MDE5NTI0OTUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTUyNzk5MH0=.Mun3uJT7Oid8daQ0fou7YDySGZysUMopIZguddeZJJg=
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlZWM2Yzk0Ni1mZTU4LTQwYzgtYjQyZi0yOWEyMDNmY2FlZjQiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTc3NDQ5Mn0=.z5VfJSwkmSwMEOC4axtxDF/FiPzAkJX6oX/k6oRC9Yg=
 
 ### Refresh access token
 POST http://localhost:3000/auth/refresh
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwZmU3NTU0Yi1kZWRjLTRkZjEtODIyOS0wYmM2YzAwNjcwZGQiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1ODkwMDkzOH0=.JsW0YdW7JeOL+PdfVPahzGPrdjGl1qnuHzDRO9OAeWw=
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlZWM2Yzk0Ni1mZTU4LTQwYzgtYjQyZi0yOWEyMDNmY2FlZjQiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1NjM5OX0=.7fW7D9jVGnt81fs3Pqjbo1xtL4e5LDWKl6DsGzwmHrg=
 
 ### Get Session
 GET http://localhost:3000/auth/session
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1N2IxOGI1YS04OGZmLTQ4ZjItYWViYi0xNTllYmY4OGU4MWQiLCJlbWFpbCI6InJhbW9ubWFyaW5vQG91dGxvb2suY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3NTk0Mjc0ODN9.pK8s3xriBFFKn6uSXa7kmauAas1mv+857qQM//P1lA0=
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMGYwYzk2Ny00NjllLTQ3YWQtYjM2Ny1hYWZjZDUyNWJhYmMiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1ODcwOX0=.txsHbbnn71tRoX2px/3IbbzXMIrzfzhWz9jELwT+Bi0=
+
+
+
+
+########################
+# USER ENPOINTS
+#######################
+
+### Get all Users
+GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwZmU3NTU0Yi1kZWRjLTRkZjEtODIyOS0wYmM2YzAwNjcwZGQiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTQxOTMzOH0=.bqCP3RJdUAQpLEXxEwTJb6piV/SbuCHV6wv7ERf6KP0=
+
+### Get User by ID
+GET http://localhost:3000/users/30f0c967-469e-47ad-b367-aafcd525babc
+Authorization: Bearer eyJhbGiOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMGYwYzk2Ny00NjllLTQ3YWQtYjM2Ny1hYWZjZDUyNWJhYmMiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1Nzc4Nn0=.zklOtt8HQMx48cMChoL8JtQwFA/9jHCAJogwVcPqgIA=
 
 ### Delete User
-POST http://localhost:3000/users/delete/beaf5ef2-c50f-4594-9560-57314a01fafa
+DELETE http://localhost:3000/users/c60ecc83-e045-47d7-aeb0-eb669afa6c43
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwODNiZTM2Zi00MjUyLTQyYTctYWEzNy05NWRhNjAyYmMzZDQiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzU5NDE1NzczfQ==.18pKJRhCmBcZYM/y4dMNYYFHc3AUN9jNaR0j5wuvtGw=
 
-#eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDc5MjE4Ny1jNmQxLTRhZDMtOGZmMy1kNjIwZDdkZGJjMDgiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTQyODYxNX0=.AtMLsESlB1YsMIPSSiONSCqXXa0ZKN8U4mbrBH91xUQ=
-#eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwNDYwMmI5OC05ZDBkLTRlNzAtODlhMS1jZDgxMWMyZjEwZTgiLCJlbWFpbCI6InJhbW9ubWFyaW5vQG91dGxvb2suY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3NTk0Mjg2Njd9.8oKIba/GOm1XaF6cx3c9oPj39k95aEPP9FJmRHU8W/0=
+
+
+
+######################
+# ARMY ENDPOINTS
+#####################
+
 ### Create Army
-POST http://localhost:3000/army/create
+POST http://localhost:3000/army
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4NzBkOTI5NS0wMmVmLTQ5Y2QtOTM2My04OGRlOWJjNzhjOTYiLCJlbWFpbCI6InJhbW9ubWFyaW5vQG91dGxvb2suY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3NTk2MDQ0MjN9.X4T5+g11cplGEMEXBj8dP8s/J7StZNlCF/KVJlXGXVo=
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMGYwYzk2Ny00NjllLTQ3YWQtYjM2Ny1hYWZjZDUyNWJhYmMiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1ODQ1Mn0=.iVXaDRnsaXsxfMJis0rUweYEb/y3P0FQSUH9qrbMhwM=
 
 {
-    "name": "Ramon's Second Army"
+    "name": "Test's Third Army"
 }
 
 ### Get All Armies
-GET http://localhost:3000/army/list-armies
+GET http://localhost:3000/army
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzhiNDFjOS0xOThjLTQyNTUtYjA0YS1hYWZkZTc3ZTk3YjIiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTYwMjE4NX0=.pcZcsu0TdhoDv3yX5u5EJlOFhfczUCvBGEKEYx8DZ1I=
 
 ### Get Army by ID
-GET http://localhost:3000/army/31fd396a-7d0d-4799-86a7-9708ee9d6474
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZTYzNmRkMi1mMTIxLTQ1NWYtYWYyOS01ODU2MDE5NTI0OTUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTUyNzk5MH0=.Mun3uJT7Oid8daQ0fou7YDySGZysUMopIZguddeZJJg=
+GET http://localhost:3000/army/1ab59607-3ea1-461c-821b-c6bf9b150c28
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzhiNDFjOS0xOThjLTQyNTUtYjA0YS1hYWZkZTc3ZTk3YjIiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTYwMjE4NX0=.pcZcsu0TdhoDv3yX5u5EJlOFhfczUCvBGEKEYx8DZ1I=
 
 ### Update Army
-PUT http://localhost:3000/army/update/31fd396a-7d0d-4799-86a7-9708ee9d6474
+PUT http://localhost:3000/army/20c5755d-d2b5-458e-85c1-3afd1ad6215e
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZTYzNmRkMi1mMTIxLTQ1NWYtYWYyOS01ODU2MDE5NTI0OTUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTUyNzk5MH0=.Mun3uJT7Oid8daQ0fou7YDySGZysUMopIZguddeZJJg=
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMGYwYzk2Ny00NjllLTQ3YWQtYjM2Ny1hYWZjZDUyNWJhYmMiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1ODQ1Mn0=.iVXaDRnsaXsxfMJis0rUweYEb/y3P0FQSUH9qrbMhwM=
 
 {
     "name": "Ramon's updated",
-    "resources": 17000
+    "resources": 40000
 }
 
 ### Delete Army
-DELETE http://localhost:3000/army/delete/a2bacfcc-7439-45c1-a275-98752308a468
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDc5MjE4Ny1jNmQxLTRhZDMtOGZmMy1kNjIwZDdkZGJjMDgiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTQyODYxNX0=.AtMLsESlB1YsMIPSSiONSCqXXa0ZKN8U4mbrBH91xUQ=
-
+DELETE http://localhost:3000/army/8ee7d299-eed0-4575-83c0-65707cb9111a
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMGYwYzk2Ny00NjllLTQ3YWQtYjM2Ny1hYWZjZDUyNWJhYmMiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1ODQ1Mn0=.iVXaDRnsaXsxfMJis0rUweYEb/y3P0FQSUH9qrbMhwM=
 
 ### Get Armies By User ID
-GET http://localhost:3000/army/user/85fcd1af-0d55-44de-a583-dc52bd2da6a8/armies
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZTYzNmRkMi1mMTIxLTQ1NWYtYWYyOS01ODU2MDE5NTI0OTUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTUyNzk5MH0=.Mun3uJT7Oid8daQ0fou7YDySGZysUMopIZguddeZJJg=
+GET http://localhost:3000/army/user/30f0c967-469e-47ad-b367-aafcd525babc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMGYwYzk2Ny00NjllLTQ3YWQtYjM2Ny1hYWZjZDUyNWJhYmMiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1ODQ1Mn0=.iVXaDRnsaXsxfMJis0rUweYEb/y3P0FQSUH9qrbMhwM=
+
+
+
+
+
+#####################
+# UNIT TYPES ENDPOINTS
+######################
 
 ### Create Unit Type
-POST http://localhost:3000/unit-types/create
+POST http://localhost:3000/unit-types
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZTYzNmRkMi1mMTIxLTQ1NWYtYWYyOS01ODU2MDE5NTI0OTUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTUyNzk5MH0=.Mun3uJT7Oid8daQ0fou7YDySGZysUMopIZguddeZJJg=
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzhiNDFjOS0xOThjLTQyNTUtYjA0YS1hYWZkZTc3ZTk3YjIiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTYwMjE4NX0=.pcZcsu0TdhoDv3yX5u5EJlOFhfczUCvBGEKEYx8DZ1I=
 
 {
     "type": "Misil 2",
@@ -131,10 +148,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZTYzN
 GET http://localhost:3000/unit-types
 
 ### Get Unit Type by ID
-GET http://localhost:3000/unit-types/unit/11
+GET http://localhost:3000/unit-types/3
 
 ### Update Unit Type
-PUT http://localhost:3000/unit-types/update/1
+PUT http://localhost:3000/unit-types/1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyOTIzNGNiYS1iZTBiLTQ2NzgtYmNmYS1lNmNlMTYzNWZhNzkiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTQzOTY0NX0=.z0UZafGq0V9ewososBEN+L58hO5S+CBO4mssp4N+B7Q=
 
@@ -145,19 +162,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyOTIzN
 }
 
 ### Delete Unit Type
-DELETE http://localhost:3000/unit-types/delete/7
+DELETE http://localhost:3000/unit-types/22
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyOTIzNGNiYS1iZTBiLTQ2NzgtYmNmYS1lNmNlMTYzNWZhNzkiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTQzOTY0NX0=.z0UZafGq0V9ewososBEN+L58hO5S+CBO4mssp4N+B7Q=
 
 ### Get Effectiveness Matrix
-GET http://localhost:3000/unit-types/list-effectiveness
+GET http://localhost:3000/unit-types/effectiveness
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMjAwNWQ5Mi01ZDllLTQxZTAtOWZkOC04OThjYTZiYmQ1ZmUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTU0MTY1M30=.b2wfI+WR4p6F5g0jgOH2u7PP5i4XiDs8V+sJ8lGAi2c=
 
-
 ### Get Effectiveness by Unit Type ID
-GET http://localhost:3000/unit-types/effectiveness/8
+GET http://localhost:3000/unit-types/effectiveness/2
 
 ### Update Effectiveness Relation
-PUT http://localhost:3000/unit-types/update-effectiveness/8
+PUT http://localhost:3000/unit-types/effectiveness/3
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3NWRhYTc2MC1lYzgxLTQ1MWMtYTdhMS1jN2U0NmI1ZGZlOTYiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTUwMDcwM30=.UlCcCcnjW94gJgeJwQLIZuADMLc06xwOp9UoSLq5+Lg=
 
@@ -167,33 +183,51 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3NWRhY
         "defender_modifier": 0.27
 }]
 
+
+
+
+
+
+#####################
+# ARMY UNITS ENDPOINTS
+#####################
+
 ### Add Unit to Army
-POST http://localhost:3000/army-units/c0b8bc3f-fb88-4c51-904a-79c9ef813bfd/add-unit/1
+POST http://localhost:3000/army-units/1ab59607-3ea1-461c-821b-c6bf9b150c28/add-unit/3
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1MWI5OTNiNC04OTc0LTRmODgtYTMzNy0zOWZiNTcyMmM2ZTQiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTYwNDQzOX0=.BO8NAiWfw99nI+Bv7bdRlil1vGmywAeGqKpVcABWcCA=
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMGYwYzk2Ny00NjllLTQ3YWQtYjM2Ny1hYWZjZDUyNWJhYmMiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1OTQ5MH0=.qy9nFtmPYobA0gBENQkSm8VM8PRsUzwKiZqMtMriuY8=
 
 {
     "quantity": 10
 }
 
 ### Get all Units in Army
-GET http://localhost:3000/army-units/c0b8bc3f-fb88-4c51-904a-79c9ef813bfd/units
-
-### Get Unit of an Army
-GET http://localhost:3000/army-units/5da73e6f-c27c-47ab-a5d1-c677a3aafde9/units/3
-
-### Remove Unit from Army
-DELETE http://localhost:3000/army-units/5da73e6f-c27c-47ab-a5d1-c677a3aafde9/remove-unit/3
-Content-Type: application/json
+GET http://localhost:3000/army-units/1ab59607-3ea1-461c-821b-c6bf9b150c28
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZTYzNmRkMi1mMTIxLTQ1NWYtYWYyOS01ODU2MDE5NTI0OTUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTUyNzk5MH0=.Mun3uJT7Oid8daQ0fou7YDySGZysUMopIZguddeZJJg=
 
-### Update Unit Quantity in Army
-PUT http://localhost:3000/army-units/5da73e6f-c27c-47ab-a5d1-c677a3aafde9/update-unit/1
+### Get Unit of an Army
+GET http://localhost:3000/army-units/1ab59607-3ea1-461c-821b-c6bf9b150c28/units/1
+
+### Remove Unit from Army
+DELETE http://localhost:3000/army-units/1ab59607-3ea1-461c-821b-c6bf9b150c28/remove-unit/3
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMjAwNWQ5Mi01ZDllLTQxZTAtOWZkOC04OThjYTZiYmQ1ZmUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTU5MDU5OH0=.1wEKKE5ZGrs3LjYPm0+FFzquXM26WUU7KRkHh7OQ390=
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMGYwYzk2Ny00NjllLTQ3YWQtYjM2Ny1hYWZjZDUyNWJhYmMiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1OTQ5MH0=.qy9nFtmPYobA0gBENQkSm8VM8PRsUzwKiZqMtMriuY8=
+
+### Update Unit Quantity in Army
+PUT http://localhost:3000/army-units/1ab59607-3ea1-461c-821b-c6bf9b150c28/update/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMGYwYzk2Ny00NjllLTQ3YWQtYjM2Ny1hYWZjZDUyNWJhYmMiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1ODQ1Mn0=.iVXaDRnsaXsxfMJis0rUweYEb/y3P0FQSUH9qrbMhwM=
+
 {
-    "quantity": 10
+    "quantity": -10
 }
+
+
+
+
+#####################
+# STRATEGY ENDPOINTS
+#####################
 
 ### Get All Strategies
 GET http://localhost:3000/strategy
@@ -202,7 +236,7 @@ GET http://localhost:3000/strategy
 GET http://localhost:3000/strategy/1
 
 ### Create Strategy
-POST http://localhost:3000/strategy/add-strategy
+POST http://localhost:3000/strategy
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMjAwNWQ5Mi01ZDllLTQxZTAtOWZkOC04OThjYTZiYmQ1ZmUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTU0MTY1M30=.b2wfI+WR4p6F5g0jgOH2u7PP5i4XiDs8V+sJ8lGAi2c=
 
@@ -213,7 +247,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMjAwN
 }
 
 ### Update Strategy
-PUT http://localhost:3000/strategy/update/111
+PUT http://localhost:3000/strategy/4
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMjAwNWQ5Mi01ZDllLTQxZTAtOWZkOC04OThjYTZiYmQ1ZmUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTU0MTY1M30=.b2wfI+WR4p6F5g0jgOH2u7PP5i4XiDs8V+sJ8lGAi2c=
 
@@ -222,39 +256,46 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMjAwN
 }
 
 ### Delete Strategy
-DELETE http://localhost:3000/strategy/delete/112
+DELETE http://localhost:3000/strategy/47
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMjAwNWQ5Mi01ZDllLTQxZTAtOWZkOC04OThjYTZiYmQ1ZmUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTU0MTY1M30=.b2wfI+WR4p6F5g0jgOH2u7PP5i4XiDs8V+sJ8lGAi2c=
 
+
+
+
+#####################
+# BATTLE ENDPOINTS
+#####################
+
 ### Create Battle
-POST http://localhost:3000/battles/start
+POST http://localhost:3000/battles
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMjAwNWQ5Mi01ZDllLTQxZTAtOWZkOC04OThjYTZiYmQ1ZmUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTU0MTY1M30=.b2wfI+WR4p6F5g0jgOH2u7PP5i4XiDs8V+sJ8lGAi2c=
 Content-Type: application/json
 
 {
-    "attackerArmyId": "2f45238a-4020-4391-8a3a-b56c0614f311",
-    "defenderArmyId": "c0b8bc3f-fb88-4c51-904a-79c9ef813bfd",
+    "attackerArmyId": "cd32e523-f21a-446e-b608-c5428db23786",
+    "defenderArmyId": "1ab59607-3ea1-461c-821b-c6bf9b150c28",
     "location": "Buenos Aires",
     "attackerStrategy": 3,
     "defenderStrategy": 3
 }
 
 ### Get Battles
-GET http://localhost:3000/battles/list
+GET http://localhost:3000/battles
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1MWI5OTNiNC04OTc0LTRmODgtYTMzNy0zOWZiNTcyMmM2ZTQiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTYwNDQzOX0=.BO8NAiWfw99nI+Bv7bdRlil1vGmywAeGqKpVcABWcCA=
 
 ### Get Battle by ID
-GET http://localhost:3000/battles/ccd20042-199d-4060-9b99-36b663c56974
+GET http://localhost:3000/battles/1a343459-b9c2-4fdb-8897-14484a11061c
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMjAwNWQ5Mi01ZDllLTQxZTAtOWZkOC04OThjYTZiYmQ1ZmUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTU0MTY1M30=.b2wfI+WR4p6F5g0jgOH2u7PP5i4XiDs8V+sJ8lGAi2c=
 
 ### Get Reports of a Battle
-GET http://localhost:3000/battles/report/ccd20042-199d-4060-9b99-36b663c56974
+GET http://localhost:3000/battles/report/1a343459-b9c2-4fdb-8897-14484a11061c
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmNzhiNDFjOS0xOThjLTQyNTUtYjA0YS1hYWZkZTc3ZTk3YjIiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTYwMjE4NX0=.pcZcsu0TdhoDv3yX5u5EJlOFhfczUCvBGEKEYx8DZ1I=
 
 ### Delete Battle by ID
-DELETE http://localhost:3000/battles/delete/53330b7c-25f3-46c2-9e79-6354201abf1f
+DELETE http://localhost:3000/battles/7acd50e8-d6a2-4cd4-ad55-9cef0d8656fb
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMjAwNWQ5Mi01ZDllLTQxZTAtOWZkOC04OThjYTZiYmQ1ZmUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTU0MTY1M30=.b2wfI+WR4p6F5g0jgOH2u7PP5i4XiDs8V+sJ8lGAi2c=
 
 ### Get all battles by Army ID
-GET http://localhost:3000/battles/army/3ebfc31e-b594-4010-a6a0-2e765877ba33
+GET http://localhost:3000/battles/army/cd32e523-f21a-446e-b608-c5428db23786
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMjAwNWQ5Mi01ZDllLTQxZTAtOWZkOC04OThjYTZiYmQ1ZmUiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTU0MTY1M30=.b2wfI+WR4p6F5g0jgOH2u7PP5i4XiDs8V+sJ8lGAi2c=
 

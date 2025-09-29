@@ -26,7 +26,7 @@ export class AuthMiddleware implements IAuthMiddleware {
 
     const payload = await this.authService.verifyToken({ token });
     if (!payload) {
-      res.status(400).json({ error: "Unauthenticated" });
+      res.status(401).json({ error: "Unauthenticated" });
       return;
     }
 
