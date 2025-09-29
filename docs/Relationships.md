@@ -1,6 +1,6 @@
 ## ERD Diagram
 
-[]
+![ERD DIAGRAM](./ERD_warSim.png)
 
 ## Sumary of relationships
 
