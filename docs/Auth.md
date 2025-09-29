@@ -5,6 +5,7 @@
 - [Authentication Process](#authentication-process)
   - [Register](#register)
   - [Login](#login)
+  - [Refresh](#refresh-token)
 
     
 ## Authentication Process
