@@ -19,6 +19,19 @@ services:
       timeout: 5s
       retries: 5
 
+  redis:
+    image: redis:7
+    restart: always
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - redis_data:/data
+
   app:
     build: .
     restart: always
@@ -28,13 +41,18 @@ services:
       DB_NAME: warsimapp
       DB_HOST: db
       DB_PORT: 5432
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
       ADMIN_EMAIL: admin@war-simulation.com
       ADMIN_PASSWORD: adminpassword
     depends_on:
       db:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     ports:
       - "3000:3000"
 
 volumes:
   db_data:
+  redis_data:

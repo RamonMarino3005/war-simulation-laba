@@ -22,8 +22,9 @@ import { StrategyModel } from "./models/strategyModel.js";
 import { StrategyService } from "./services/strategyService.js";
 import { StrategyMiddleware } from "./middlewares/strategyMiddleware.js";
 import { BattleModel } from "./models/battleModel.js";
-import { BattleService } from "./services/battle/battleService.js";
+import { BattleService } from "./services/battles/battleService.js";
 import { BattleMiddleware } from "./middlewares/battleMiddleware.js";
+import { RedisClient } from "./db/Redis/index.js";
 
 const accessSecret = "my-secret";
 const refreshSecret = "refresh-secret";
@@ -32,7 +33,8 @@ const refreshSecret = "refresh-secret";
 
 // JWT and Refresh Token Storage
 const jwtProvider = new JwtProvider<Payload>(accessSecret, refreshSecret);
-const refreshStorage = new RefreshStorage();
+const redisClient = new RedisClient({ prefix: "refresh_token:" });
+const refreshStorage = new RefreshStorage(redisClient);
 
 // Models
 const userModel = new UserModel(db);
