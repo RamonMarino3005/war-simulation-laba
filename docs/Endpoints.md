@@ -4,11 +4,11 @@
 
 - [Endpoints API Documentation](#endpoints-api-documentation)
     - [User Endpoints (api/users)](#users-endpoints-apiusers)
-    - [Army Endpoints (api/army)](#army-enpoints-apiarmy)
-    - [ArmyUnit Endpoints (api/army-units)](#armyunit-endpoints-apiarmyunits)
-    - [Battle Endpointsw (api/battles)](#battle-endpoints-apibattles)
+    - [Army Endpoints (api/army)](#army-endpoints-apiarmy)
+    - [ArmyUnit Endpoints (api/army-units)](#armyunit-endpoints-apiarmy-units)
+    - [Battle Endpoints (api/battles)](#battle-endpoints-apibattles)
     - [Strategy Endpoints (api/strategy)](#strategy-endpoints-apistrategy)
-    - [UnitType Endpoints (api/unit-types)](#unittype-endpoints-apiunit-types)
+    - [UnitType Endpoints (api/unit-types)](#unittypes-endpoints-apiunit-types)
 
 ### Users endpoints `(api/users)`
 
