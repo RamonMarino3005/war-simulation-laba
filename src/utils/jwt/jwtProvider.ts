@@ -15,7 +15,7 @@ export class JwtProvider<T extends object> {
         payload,
         secret: this.accessSecret,
         options: {
-          expiresIn: "7d",
+          expiresIn: "1d",
         },
       })
     );
@@ -35,7 +35,7 @@ export class JwtProvider<T extends object> {
         payload,
         secret: this.refreshSecret,
         options: {
-          expiresIn: "1d",
+          expiresIn: "7d",
         },
       })
     );
