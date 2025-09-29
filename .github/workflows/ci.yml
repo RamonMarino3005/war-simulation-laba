@@ -1,37 +1,75 @@
-name: CI
+name: Node.js CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: warsimuser
+          POSTGRES_PASSWORD: mypassword
+          POSTGRES_DB: warsimapp
+        options: >-
+          --health-cmd "pg_isready -U warsimuser -d warsimapp"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
+          cache: "npm"
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run linter
+      - name: Wait for Postgres to be ready
+        run: |
+          until pg_isready -h localhost -U warsimuser -d warsimapp; do
+            echo "Waiting for Postgres..."
+            sleep 2
+          done
+
+      - name: Wait for Redis to be ready
+        run: |
+          until redis-cli -h localhost ping | grep PONG; do
+            echo "Waiting for Redis..."
+            sleep 2
+          done
+
+      - name: Run lint
         run: npm run lint
 
       - name: Run tests with coverage
-        run: npm test -- --coverage
-
-      - name: Upload coverage to GitHub
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage
+        env:
+          DB_USER: warsimuser
+          DB_PASSWORD: mypassword
+          DB_NAME: warsimapp
+          DB_HOST: localhost
+          DB_PORT: 5432
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+        run: npm run test:coverage
