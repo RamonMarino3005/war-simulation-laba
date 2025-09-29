@@ -10,7 +10,7 @@ import { IArmyService } from "types/services/IArmyService.js";
 import { IArmyUnitService } from "types/services/IArmyUnitService.js";
 import { IBattleService } from "types/services/IBattleService.js";
 import { IStrategyService } from "types/services/IStrategyService.js";
-import { simulateBattle } from "./battleSimulation.js";
+import { simulateBattle } from "./battleSimulationFn.js";
 import { addPerks, createEffectivenessMatrix } from "./utils.js";
 import { IUnitTypeService } from "types/services/IUnitTypeService.js";
 import { UnitInArmy } from "types/entities/armyUnitTypes.js";
