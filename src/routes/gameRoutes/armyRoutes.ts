@@ -22,23 +22,23 @@ export const createArmyRouter = (
 
   router.use(extractToken, getSession);
 
-  router.get("/list-armies", enforceAdmin, armyController.getAllArmies);
+  router.get("/", enforceAdmin, armyController.getAllArmies);
 
   router.get("/:id", validateUUID, armyController.getArmyById);
 
-  router.post("/create", validateArmyCreation, armyController.createArmy);
+  router.post("/", validateArmyCreation, armyController.createArmy);
 
   router.put(
-    "/update/:id",
+    "/:id",
     validateArmyFields,
     validateUUID,
     armyController.updateArmy
   );
 
-  router.delete("/delete/:id", validateUUID, armyController.deleteArmy);
+  router.delete("/:id", validateUUID, armyController.deleteArmy);
 
   router.get(
-    "/user/:userId/armies",
+    "/user/:userId",
     validateUUIDParam("userId"),
     armyController.getArmiesByUser
   );
