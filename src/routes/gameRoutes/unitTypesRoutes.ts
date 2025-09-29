@@ -26,12 +26,7 @@ export const createUnitTypeRouter = (
 
   router.get("/", unitTypeController.getAllUnitTypes);
 
-  router.get("/unit/:id", checkNumericId, unitTypeController.getUnitTypeById);
-
-  router.get(
-    "/list-effectiveness",
-    unitTypeController.getAllEffectivenessRelations
-  );
+  router.get("/effectiveness", unitTypeController.getAllEffectivenessRelations);
 
   router.get(
     "/effectiveness/:id",
@@ -39,29 +34,23 @@ export const createUnitTypeRouter = (
     unitTypeController.getEffectivenessRelationsByUnitType
   );
 
+  router.get("/:id", checkNumericId, unitTypeController.getUnitTypeById);
+
   router.use(extractToken, getSession, enforceAdmin);
 
-  router.post(
-    "/create",
-    validateUnitTypeCreate,
-    unitTypeController.createUnitType
-  );
+  router.post("/", validateUnitTypeCreate, unitTypeController.createUnitType);
 
   router.put(
-    "/update/:id",
+    "/:id",
     checkNumericId,
     validateUnitTypeFields(true),
     unitTypeController.updateUnitType
   );
 
-  router.delete(
-    "/delete/:id",
-    checkNumericId,
-    unitTypeController.deleteUnitType
-  );
+  router.delete("/:id", checkNumericId, unitTypeController.deleteUnitType);
 
   router.put(
-    "/update-effectiveness/:id",
+    "/effectiveness/:id",
     checkNumericId,
     validateEffectivenessArray,
     unitTypeController.updateUnitTypeEffectiveness
