@@ -15,6 +15,10 @@ import { addPerks, createEffectivenessMatrix } from "./utils.js";
 import { IUnitTypeService } from "types/services/IUnitTypeService.js";
 import { UnitInArmy } from "types/entities/armyUnitTypes.js";
 
+/**
+ * Service responsible for handling all battle-related operations,
+ * including starting battles, storing battle results, and fetching reports.
+ */
 export class BattleService implements IBattleService {
   constructor(
     private battleModel: IBattleModel,
@@ -24,6 +28,15 @@ export class BattleService implements IBattleService {
     private unitTypeService: IUnitTypeService
   ) {}
 
+  /**
+   * Initiates a battle between two armies using given strategies.
+   * @param attackerArmyId - The ID of the attacking army
+   * @param defenderArmyId - The ID of the defending army
+   * @param location - Battle location name
+   * @param attackerStrategyId - Attacker's strategy ID
+   * @param defenderStrategyId - Defender's strategy ID
+   * @returns A detailed BattleLog containing units, stats, winner, and rounds
+   */
   async startBattle(
     attackerArmyId: string,
     defenderArmyId: string,
@@ -194,22 +207,46 @@ export class BattleService implements IBattleService {
     return battleLog;
   }
 
+  /**
+   * Retrieves all battles from the database.
+   * @returns {Promise<Battle[]>} List of all battles
+   */
   async getAllBattles(): Promise<Battle[]> {
     return await this.battleModel.findAll();
   }
 
+  /**
+   * Retrieves a battle by its ID.
+   * @param {string} battleId - ID of the battle
+   * @returns {Promise<Battle | null>} Battle if found, otherwise null
+   */
   async getBattleById(battleId: string): Promise<Battle | null> {
     return await this.battleModel.findById(battleId);
   }
 
+  /**
+   * Retrieves all battles involving a specific army.
+   * @param {string} armyId - Army ID
+   * @returns {Promise<any[]>} List of battles involving the army
+   */
   async getBattlesByArmyId(armyId: string): Promise<any[]> {
     return await this.battleModel.findByArmyId(armyId);
   }
 
+  /**
+   * Deletes a battle from the database.
+   * @param {string} battleId - ID of the battle to delete
+   * @returns {Promise<Battle | null>} Deleted battle if successful
+   */
   async deleteBattle(battleId: string): Promise<Battle | null> {
     return await this.battleModel.delete(battleId);
   }
 
+  /**
+   * Generates a detailed report of a battle.
+   * @param {string} battleId - ID of the battle
+   * @returns {Promise<BattleReport | null>} BattleReport object or null if not found
+   */
   async getBattleReport(battleId: string): Promise<BattleReport | null> {
     const rows = await this.battleModel.getReport(battleId);
     if (!rows) {
