@@ -110,7 +110,14 @@ export class UnitTypeController {
     console.log("Deleting Unit Type ID:", unitTypeId);
     try {
       const result = await this.unitTypeService.deleteUnitType(unitTypeId);
-      res.status(200).json(result);
+
+      if (!result) {
+        return res.status(404).json({ error: "Unit Type not found" });
+      }
+      res.status(204).send({
+        status: "success",
+        message: "Unit Type deleted successfully",
+      });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

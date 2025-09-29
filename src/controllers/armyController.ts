@@ -113,7 +113,14 @@ export class ArmyController {
 
     try {
       const result = await this.armyService.deleteArmy(userId, armyId);
-      res.status(200).json(result);
+      if (!result) {
+        return res.status(404).json({ error: "Army not found" });
+      }
+
+      res.status(200).json({
+        status: "success",
+        message: "Army deleted successfully",
+      });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

@@ -68,10 +68,11 @@ export class BattleModel implements IBattleModel {
     return response.rows;
   }
 
-  async delete(battleId: string): Promise<void> {
-    const response = await this.db.query("DELETE FROM battle WHERE id = $1", [
-      battleId,
-    ]);
+  async delete(battleId: string): Promise<Battle | null> {
+    const response = await this.db.query(
+      "DELETE FROM battle WHERE id = $1 RETURNING *",
+      [battleId]
+    );
     return response.rows[0] || null;
   }
 
@@ -111,15 +112,3 @@ export class BattleModel implements IBattleModel {
     return response.rows.length > 0 ? response.rows : null;
   }
 }
-
-// b.id AS battle_id,
-// b.date,
-// b.location,
-
-// ba.role,
-// ba.outcome,
-// ba.casualties,
-
-// a.id AS army_id,
-// a.name AS army_name,
-// a.owner_id AS army_owner

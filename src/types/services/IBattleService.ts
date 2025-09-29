@@ -15,7 +15,7 @@ export interface IBattleService {
 
   getBattlesByArmyId(armyId: string): Promise<BattleArmy[]>;
 
-  deleteBattle(battleId: string): Promise<void>;
+  deleteBattle(battleId: string): Promise<Battle | null>;
 
   getBattleReport(battleId: string): Promise<any>;
 }

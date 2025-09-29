@@ -206,7 +206,7 @@ export class BattleService implements IBattleService {
     return await this.battleModel.findByArmyId(armyId);
   }
 
-  async deleteBattle(battleId: string): Promise<void> {
+  async deleteBattle(battleId: string): Promise<Battle | null> {
     return await this.battleModel.delete(battleId);
   }
 

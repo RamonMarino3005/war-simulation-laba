@@ -111,8 +111,14 @@ export class BattleController {
   deleteBattle = async (req: Request, res: Response) => {
     const battleId = req.params.id;
     try {
-      await this.battleService.deleteBattle(battleId);
-      res.status(204).send();
+      let result = await this.battleService.deleteBattle(battleId);
+      if (!result) {
+        return res.status(404).json({ error: "Battle not found" });
+      }
+      res.status(204).send({
+        status: "success",
+        message: "Battle deleted successfully",
+      });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

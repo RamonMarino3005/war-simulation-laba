@@ -74,7 +74,13 @@ export class ArmyUnitController {
         unitId,
         userId
       );
-      res.status(200).json(result);
+      if (!result) {
+        return res.status(404).json({ error: "Unit not found" });
+      }
+      res.status(200).json({
+        status: "success",
+        message: "Unit removed successfully",
+      });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

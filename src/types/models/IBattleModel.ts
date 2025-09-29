@@ -24,7 +24,7 @@ export interface IBattleModel {
 
   findByArmyId(armyId: string): Promise<BattleArmy[]>;
 
-  delete(battleId: string): Promise<void>;
+  delete(battleId: string): Promise<Battle | null>;
 
   getReport(battleId: string): Promise<BattleReportResponseDB[] | null>;
 }

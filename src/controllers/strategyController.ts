@@ -101,8 +101,14 @@ export class StrategyController {
   removeStrategy = async (req: Request, res: Response) => {
     const strategyId = Number(req.params.strategyId);
     try {
-      await this.strategyService.removeStrategy(strategyId);
-      res.status(204).send();
+      let result = await this.strategyService.removeStrategy(strategyId);
+      if (!result) {
+        return res.status(404).json({ error: "Strategy not found" });
+      }
+      res.status(204).send({
+        status: "success",
+        message: "Strategy deleted successfully",
+      });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
