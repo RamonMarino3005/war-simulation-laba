@@ -21,7 +21,7 @@ export const createBattleRouter = (
 
   router.use(extractToken, getSession);
 
-  router.get("/list", battleController.listBattles);
+  router.get("/", battleController.listBattles);
 
   router.get("/:id", validateUUIDParam("id"), battleController.getBattleById);
 
@@ -41,7 +41,7 @@ export const createBattleRouter = (
 
   router.use(enforceAdmin);
 
-  router.delete("/delete/:id", battleController.deleteBattle);
+  router.delete("/:id", battleController.deleteBattle);
 
   return router;
 };
