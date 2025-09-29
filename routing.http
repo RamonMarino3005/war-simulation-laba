@@ -193,7 +193,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3NWRhY
 #####################
 
 ### Add Unit to Army
-POST http://localhost:3000/army-units/1ab59607-3ea1-461c-821b-c6bf9b150c28/add-unit/3
+POST http://localhost:3000/army-units/1ab59607-3ea1-461c-821b-c6bf9b150c28/units/3
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMGYwYzk2Ny00NjllLTQ3YWQtYjM2Ny1hYWZjZDUyNWJhYmMiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1OTQ5MH0=.qy9nFtmPYobA0gBENQkSm8VM8PRsUzwKiZqMtMriuY8=
 
@@ -209,12 +209,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZTYzN
 GET http://localhost:3000/army-units/1ab59607-3ea1-461c-821b-c6bf9b150c28/units/1
 
 ### Remove Unit from Army
-DELETE http://localhost:3000/army-units/1ab59607-3ea1-461c-821b-c6bf9b150c28/remove-unit/3
+DELETE http://localhost:3000/army-units/1ab59607-3ea1-461c-821b-c6bf9b150c28/units/3
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMGYwYzk2Ny00NjllLTQ3YWQtYjM2Ny1hYWZjZDUyNWJhYmMiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1OTQ5MH0=.qy9nFtmPYobA0gBENQkSm8VM8PRsUzwKiZqMtMriuY8=
 
 ### Update Unit Quantity in Army
-PUT http://localhost:3000/army-units/1ab59607-3ea1-461c-821b-c6bf9b150c28/update/1
+PUT http://localhost:3000/army-units/1ab59607-3ea1-461c-821b-c6bf9b150c28/units/1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMGYwYzk2Ny00NjllLTQ3YWQtYjM2Ny1hYWZjZDUyNWJhYmMiLCJlbWFpbCI6ImFkbWluQHdhci1zaW11bGF0aW9uLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTc1OTI1ODQ1Mn0=.iVXaDRnsaXsxfMJis0rUweYEb/y3P0FQSUH9qrbMhwM=
 
