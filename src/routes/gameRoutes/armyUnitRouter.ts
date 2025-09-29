@@ -38,7 +38,7 @@ export const createArmyUnitRouter = (
   router.use(extractToken, getSession);
 
   router.put(
-    "/:armyId/update/:unitId",
+    "/:armyId/units/:unitId",
     validateUUIDforArmyId,
     validateUnitIdParam,
     validateUpdateBody,
@@ -46,14 +46,14 @@ export const createArmyUnitRouter = (
   );
 
   router.delete(
-    "/:armyId/remove-unit/:unitId",
+    "/:armyId/units/:unitId",
     validateUUIDforArmyId,
     validateUnitIdParam,
     armyController.removeUnitFromArmy
   );
 
   router.post(
-    "/:armyId/add-unit/:unitId",
+    "/:armyId/units/:unitId",
     validateUUIDforArmyId,
     validateUnitIdParam,
     validateCreateBody,

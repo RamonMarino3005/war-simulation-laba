@@ -2,9 +2,20 @@ import { Request, Response } from "express";
 import { StrategyFields } from "types/entities/strategyTypes.js";
 import { IStrategyService } from "types/services/IStrategyService.js";
 
+/**
+ * Controller responsible for managing strategies.
+ * Provides endpoints to create, retrieve, update, and delete strategies.
+ */
 export class StrategyController {
   constructor(private strategyService: IStrategyService) {}
 
+  /**
+   * Get all strategies.
+   *
+   * @route GET /strategy
+   * @returns {Strategy[]} 200 - List of all strategies
+   * @returns {object} 400 - Error message if retrieval fails
+   */
   getAllStrategies = async (req: Request, res: Response) => {
     try {
       const strategies = await this.strategyService.getAllStrategies();
@@ -14,6 +25,15 @@ export class StrategyController {
     }
   };
 
+  /**
+   * Get a strategy by its ID.
+   *
+   * @route GET /strategy/:strategyId
+   * @param {number} strategyId - ID of the strategy
+   * @returns {Strategy} 200 - Strategy details
+   * @returns {object} 404 - Strategy not found
+   * @returns {object} 400 - Error message if retrieval fails
+   */
   getStrategyById = async (req: Request, res: Response) => {
     const strategyId = Number(req.params.strategyId);
 
@@ -28,6 +48,14 @@ export class StrategyController {
     }
   };
 
+  /**
+   * Create a new strategy.
+   *
+   * @route POST /strategy
+   * @body {StrategyFields} strategyData - Strategy data
+   * @returns {Strategy} 201 - Created strategy
+   * @returns {object} 400 - Error message if creation fails
+   */
   addStrategy = async (req: Request, res: Response) => {
     const strategyData = req.validatedBody as StrategyFields;
     try {
@@ -38,6 +66,15 @@ export class StrategyController {
     }
   };
 
+  /**
+   * Update an existing strategy.
+   *
+   * @route PUT /strategy/:strategyId
+   * @param {number} strategyId - ID of the strategy
+   * @body {Partial<StrategyFields>} updateData - Fields to update
+   * @returns {Strategy} 200 - Updated strategy
+   * @returns {object} 400 - Error message if update fails
+   */
   updateStrategy = async (req: Request, res: Response) => {
     const strategyId = Number(req.params.strategyId);
     const updateData = req.validatedBody as Partial<StrategyFields>;
@@ -53,6 +90,14 @@ export class StrategyController {
     }
   };
 
+  /**
+   * Delete a strategy by its ID.
+   *
+   * @route DELETE /strategy/:strategyId
+   * @param {number} strategyId - ID of the strategy
+   * @returns {void} 204 - Successfully deleted
+   * @returns {object} 400 - Error message if deletion fails
+   */
   removeStrategy = async (req: Request, res: Response) => {
     const strategyId = Number(req.params.strategyId);
     try {

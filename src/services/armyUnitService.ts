@@ -8,6 +8,10 @@ import { IArmyService } from "types/services/IArmyService.js";
 import { IArmyUnitService } from "types/services/IArmyUnitService.js";
 import { IUnitTypeService } from "types/services/IUnitTypeService.js";
 
+/**
+ * Service responsible for managing units within armies.
+ * Handles adding, updating, retrieving, and removing units.
+ */
 export class ArmyUnitService implements IArmyUnitService {
   constructor(
     private armyUnitModel: IArmyUnitModel,
@@ -15,6 +19,17 @@ export class ArmyUnitService implements IArmyUnitService {
     private unitTypeService: IUnitTypeService
   ) {}
 
+  /**
+   * Updates the quantity of a specific unit in an army.
+   * Checks user ownership and resource availability.
+   *
+   * @param armyId - ID of the army
+   * @param unitId - ID of the unit type
+   * @param quantity - Quantity change (can be positive or negative)
+   * @param userId - ID of the user performing the update
+   * @returns Updated ArmyUnit object or null
+   * @throws Error if army/unit/unit type not found, user unauthorized, insufficient resources or quantity
+   */
   async updateUnitInArmy(
     armyId: string,
     unitId: number,
@@ -63,6 +78,17 @@ export class ArmyUnitService implements IArmyUnitService {
     return updatedUnit;
   }
 
+  /**
+   * Adds a unit to an army.
+   * If the unit already exists, it increments the quantity.
+   *
+   * @param armyId - ID of the army
+   * @param unitId - ID of the unit type
+   * @param quantity - Quantity to add (default is 1)
+   * @param userId - ID of the user performing the operation
+   * @returns The added or updated ArmyUnit
+   * @throws Error if army/unit type not found, user unauthorized, or insufficient resources
+   */
   async addUnitToArmy(
     armyId: string,
     unitId: number,
@@ -112,6 +138,13 @@ export class ArmyUnitService implements IArmyUnitService {
     return newUnit;
   }
 
+  /**
+   * Retrieves all units in a specific army.
+   *
+   * @param armyId - ID of the army
+   * @returns UnitsInArmyResponse containing army ID and unit list
+   * @throws Error if army not found
+   */
   async getUnitsInArmy(armyId: string): Promise<UnitsInArmyResponse> {
     const army = await this.armyService.getArmyById(armyId);
     if (!army) throw new Error("Army not found");
@@ -120,6 +153,16 @@ export class ArmyUnitService implements IArmyUnitService {
     return { army_id: armyId, units: response || [] };
   }
 
+  /**
+   * Removes all units of a specific type from an army.
+   * Updates army resources accordingly.
+   *
+   * @param armyId - ID of the army
+   * @param unitId - ID of the unit type
+   * @param userId - ID of the user performing the removal
+   * @returns The removed ArmyUnit
+   * @throws Error if army/unit/unit type not found or user unauthorized
+   */
   async removeUnitFromArmy(
     armyId: string,
     unitId: number,
@@ -153,6 +196,14 @@ export class ArmyUnitService implements IArmyUnitService {
     return removedUnits;
   }
 
+  /**
+   * Retrieves a specific unit in an army.
+   *
+   * @param armyId - ID of the army
+   * @param unitId - ID of the unit type
+   * @returns UnitInArmyResponse containing army ID and unit, or null if not found
+   * @throws Error if army or unit type not found
+   */
   async getUnitInArmy(
     armyId: string,
     unitId: number

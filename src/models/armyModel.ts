@@ -8,6 +8,9 @@ const STARTING_RESOURCES = 20000;
 export class ArmyModel implements IArmyModel {
   constructor(private db: DB_Controller) {}
 
+  /**
+   * Finds all armies owned by a specific user.
+   */
   async findByUserId(ownerId: string): Promise<Army[] | null> {
     const { rows } = await this.db.query(
       "SELECT * FROM army WHERE owner_id = $1",
@@ -16,6 +19,9 @@ export class ArmyModel implements IArmyModel {
     return rows.length ? rows : null;
   }
 
+  /**
+   * Creates a new army for a user with starting resources.
+   */
   async create(ownerId: string, data: ArmyFields): Promise<Army> {
     const id = randomUUID();
     console.log("Name: ", data.name);
@@ -26,6 +32,9 @@ export class ArmyModel implements IArmyModel {
     return rows[0];
   }
 
+  /**
+   * Finds an army by its ID.
+   */
   async findById(armyId: string): Promise<Army | null> {
     const { rows } = await this.db.query("SELECT * FROM army WHERE id = $1", [
       armyId,
@@ -33,11 +42,17 @@ export class ArmyModel implements IArmyModel {
     return rows.length ? rows[0] : null;
   }
 
+  /**
+   * Retrieves all armies in the database.
+   */
   async getAll(): Promise<Army[]> {
     const { rows } = await this.db.query("SELECT * FROM army");
     return rows;
   }
 
+  /**
+   * Updates an army's data.
+   */
   async update(armyId: string, armyData: ArmyFields): Promise<Army | null> {
     const { rows } = await this.db.query(
       "UPDATE army SET name = $1, resources = $2 WHERE id = $3 RETURNING *",
@@ -46,6 +61,9 @@ export class ArmyModel implements IArmyModel {
     return rows.length ? rows[0] : null;
   }
 
+  /**
+   * Deletes an army by its ID.
+   */
   async delete(armyId: string): Promise<boolean> {
     await this.db.query("DELETE FROM army WHERE id = $1", [armyId]);
     return true;

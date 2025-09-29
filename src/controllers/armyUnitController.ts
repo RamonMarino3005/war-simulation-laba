@@ -1,9 +1,22 @@
 import { Request, Response } from "express";
 import { IArmyUnitService } from "types/services/IArmyUnitService.js";
 
+/**
+ * Controller for handling operations related to units within an army.
+ *
+ * Provides endpoints to add, update, remove, and retrieve units in armies.
+ */
 export class ArmyUnitController {
   constructor(private armyUnitService: IArmyUnitService) {}
 
+  /**
+   * Adds a unit to an army.
+   *
+   * @route POST /army/:armyId/units/:unitId
+   * @param req - Express request containing `armyId` and `unitId` in params, and `quantity` in validated body
+   * @param res - Express response object
+   * @returns 200 with the result of the operation, or 400 on error
+   */
   addUnitToArmy = async (req: Request, res: Response) => {
     const { armyId } = req.params;
     const unitId = Number(req.params.unitId);
@@ -23,6 +36,14 @@ export class ArmyUnitController {
     }
   };
 
+  /**
+   * Retrieves all units within a specific army.
+   *
+   * @route GET /army/:armyId
+   * @param req - Express request containing `armyId` in params
+   * @param res - Express response object
+   * @returns 200 with a list of units, or 400 on error
+   */
   getUnitsInArmy = async (req: Request, res: Response) => {
     const { armyId } = req.params;
 
@@ -34,6 +55,14 @@ export class ArmyUnitController {
     }
   };
 
+  /**
+   * Removes a specific unit from an army.
+   *
+   * @route DELETE /army/:armyId/units/:unitId
+   * @param req - Express request containing `armyId` and `unitId` in params
+   * @param res - Express response object
+   * @returns 200 with the result of the operation, or 400 on error
+   */
   removeUnitFromArmy = async (req: Request, res: Response) => {
     const { armyId } = req.params;
     const unitId = Number(req.params.unitId);
@@ -51,6 +80,14 @@ export class ArmyUnitController {
     }
   };
 
+  /**
+   * Updates the quantity of a specific unit in an army.
+   *
+   * @route PUT /army/:armyId/units/:unitId
+   * @param req - Express request containing `armyId` and `unitId` in params, and `quantity` in validated body
+   * @param res - Express response object
+   * @returns 200 with the updated unit, or 400 on error
+   */
   updateUnitInArmy = async (req: Request, res: Response) => {
     const { armyId } = req.params;
     const unitId = Number(req.params.unitId);
@@ -70,6 +107,14 @@ export class ArmyUnitController {
     }
   };
 
+  /**
+   * Retrieves details of a specific unit within an army.
+   *
+   * @route GET /army/:armyId/units/:unitId
+   * @param req - Express request containing `armyId` and `unitId` in params
+   * @param res - Express response object
+   * @returns 200 with the unit details, or 400 on error
+   */
   getUnitInArmy = async (req: Request, res: Response) => {
     const { armyId } = req.params;
     const unitId = Number(req.params.unitId);

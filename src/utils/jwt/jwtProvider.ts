@@ -1,5 +1,9 @@
 import * as jwt from "./index.js";
 
+/**
+ * A generic JWT provider for signing and verifying access and refresh tokens.
+ * @template T - The payload type to store in the JWT.
+ */
 export class JwtProvider<T extends object> {
   private accessSecret: string;
   private refreshSecret: string;
@@ -9,6 +13,11 @@ export class JwtProvider<T extends object> {
     this.refreshSecret = refreshSecret;
   }
 
+  /**
+   * Signs a JWT access token with a 1-day expiration.
+   * @param payload - The payload to encode in the token.
+   * @returns A promise resolving to the signed JWT string.
+   */
   sign(payload: T): Promise<string> {
     return Promise.resolve(
       jwt.sign({
@@ -21,6 +30,11 @@ export class JwtProvider<T extends object> {
     );
   }
 
+  /**
+   * Verifies a JWT access token.
+   * @param token - The token string to verify.
+   * @returns A promise resolving to the payload with expiration or null if invalid.
+   */
   verify(token: string): Promise<(T & { exp: number }) | null> {
     try {
       return Promise.resolve(jwt.verify({ token, secret: this.accessSecret }));
@@ -29,6 +43,11 @@ export class JwtProvider<T extends object> {
     }
   }
 
+  /**
+   * Signs a JWT refresh token with a 7-day expiration.
+   * @param payload - The payload to encode in the refresh token.
+   * @returns A promise resolving to the signed JWT string.
+   */
   signRefreshToken(payload: T): Promise<string> {
     return Promise.resolve(
       jwt.sign({
@@ -41,6 +60,11 @@ export class JwtProvider<T extends object> {
     );
   }
 
+  /**
+   * Verifies a JWT refresh token.
+   * @param token - The refresh token string to verify.
+   * @returns A promise resolving to the payload with expiration or null if invalid.
+   */
   verifyRefreshToken(token: string): Promise<(T & { exp: number }) | null> {
     try {
       return Promise.resolve(jwt.verify({ token, secret: this.refreshSecret }));

@@ -2,9 +2,23 @@ import { Request, Response } from "express";
 import { ArmyFields } from "types/entities/armyTypes.js";
 import { IArmyService } from "types/services/IArmyService.js";
 
+/**
+ * Controller for handling Army-related HTTP requests.
+ *
+ * Provides endpoints for creating, retrieving, updating, and deleting armies,
+ * as well as fetching armies by user.
+ */
 export class ArmyController {
   constructor(private armyService: IArmyService) {}
 
+  /**
+   * Retrieves all armies.
+   *
+   * @route GET /armies
+   * @param req - Express request object
+   * @param res - Express response object
+   * @returns 200 with a list of armies, or 400 with an error message
+   */
   getAllArmies = async (req: Request, res: Response) => {
     try {
       const armies = await this.armyService.getAllArmies();
@@ -14,6 +28,14 @@ export class ArmyController {
     }
   };
 
+  /**
+   * Retrieves a single army by ID.
+   *
+   * @route GET /armies/:id
+   * @param req - Express request containing `id` as a route parameter
+   * @param res - Express response object
+   * @returns 200 with the army data, 404 if not found, or 400 on error
+   */
   getArmyById = async (req: Request, res: Response) => {
     const armyId = req.params.id;
     try {
@@ -28,6 +50,14 @@ export class ArmyController {
     }
   };
 
+  /**
+   * Creates a new army for the authenticated user.
+   *
+   * @route POST /armies
+   * @param req - Express request containing the validated body `{ name: string }`
+   * @param res - Express response object
+   * @returns 201 with the created army, or 400 on error
+   */
   createArmy = async (req: Request, res: Response) => {
     const { userId } = req.session;
     const { name } = req.validatedBody as { name: string };
@@ -41,6 +71,14 @@ export class ArmyController {
     }
   };
 
+  /**
+   * Updates an existing army.
+   *
+   * @route PUT /armies/:id
+   * @param req - Express request containing `id` in params and `ArmyFields` in the validated body
+   * @param res - Express response object
+   * @returns 200 with the updated army, or 400 on error
+   */
   updateArmy = async (req: Request, res: Response) => {
     const { userId } = req.session;
     const { id: armyId } = req.params;
@@ -61,12 +99,18 @@ export class ArmyController {
     }
   };
 
+  /**
+   * Deletes an existing army.
+   *
+   * @route DELETE /armies/:id
+   * @param req - Express request containing `id` in params
+   * @param res - Express response object
+   * @returns 200 with deletion result, or 400 on error
+   */
   deleteArmy = async (req: Request, res: Response) => {
     const { userId } = req.session;
     const { id: armyId } = req.params;
 
-    console.log("Deleting Army ID:", armyId);
-    console.log("User ID:", userId);
     try {
       const result = await this.armyService.deleteArmy(userId, armyId);
       res.status(200).json(result);
@@ -75,6 +119,16 @@ export class ArmyController {
     }
   };
 
+  /**
+   * Retrieves all armies for a specific user.
+   *
+   * Only accessible by the user themselves or an admin.
+   *
+   * @route GET /users/:userId/armies
+   * @param req - Express request containing `userId` in session and as route parameter
+   * @param res - Express response object
+   * @returns 200 with a list of armies, 403 if forbidden, or 400 on error
+   */
   getArmiesByUser = async (req: Request, res: Response) => {
     const { userId } = req.session;
     const { userId: paramUserId } = req.params;
