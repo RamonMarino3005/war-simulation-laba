@@ -28,6 +28,100 @@ This API provides all the endpoints necessary to manage, control, and analyze la
 ERD Diagram:
 ![ERD DIAGRAM](./docs/ERD_warSim.png)
 
+## Setup
+## Docker Setup
+
+This project uses **Docker** and **Docker Compose** to run both the PostgreSQL database, Redis and the Node.js application.
+
+### 1. Prerequisites
+
+Make sure the following are installed on your system:
+
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+---
+
+### 2. Environment Variables
+
+The application requires certain environment variables to run. You are not required to provide them, as these are set for you directly in `docker-compose.yml`. However, it is recommended for security.
+
+```yaml
+# Database service
+POSTGRES_USER: warsimuser
+POSTGRES_PASSWORD: mypassword
+POSTGRES_DB: warsimapp
+
+# App service
+DB_USER: warsimuser
+DB_PASSWORD: mypassword
+DB_NAME: warsimapp
+DB_HOST: db
+DB_PORT: 5432
+ADMIN_EMAIL: admin@war-simulation.com
+ADMIN_PASSWORD: adminpassword
+```
+You should change the credentials for security, always keeping `USER`, `PASSWORD`, `DB NAME` the same across both services.
+
+### 3. Build and Start Containers
+
+From the project root, run:
+
+```bash
+docker-compose up
+```
+
+This command will:
+
+&nbsp;&nbsp;&nbsp;**1.** Pull required images (node:22-slim for the app, postgres:16 for the database).
+
+&nbsp;&nbsp;&nbsp;**2.** Build your Node.js application container.
+
+&nbsp;&nbsp;&nbsp;**3.** Start both the db and app services.
+
+&nbsp;&nbsp;&nbsp;**4.** Wait for the database to pass the healthcheck before starting the app.
+
+Or, rebuild first, then run: 
+
+```bash
+docker-compose up --build
+```
+
+### 4. Stop Containers
+
+To stop and remove the running containers while keeping database data:
+
+```bash
+docker-compose down
+```
+
+The PostgreSQL data is persisted in the db_data volume, so it is safe to restart.
+
+### 5. Rebuild from scratch
+
+If you need to rebuild the images from scratch:
+
+```bash
+docker-compose build --no-cache
+docker-compose up
+```
+
+Or, force remove all app data from docker:
+
+```bash
+docker-compose down -v
+```
+Then, build docker again: 
+
+
+### 6. Notes & Tips
+
+- The database initialization script init.sql is automatically executed on first container startup.
+- The app requires ADMIN_EMAIL and ADMIN_PASSWORD to create the first admin user.
+- The db service includes a healthcheck to ensure the database is ready before the app starts.
+- Docker volumes:
+&nbsp;&nbsp;&nbsp;db_data → persists PostgreSQL data between container restarts.
+
 
 ## Manual Setup
 
@@ -65,17 +159,11 @@ DB_PASSWORD=mypassword     # Password for the user
 DB_NAME=warsimapp          # Name of the database the app will create
 DB_HOST=localhost          # PostgreSQL host (default: localhost)
 DB_PORT=5432               # PostgreSQL port (default: 5432)
+ADMIN_EMAIL="admin@war-simulation.com"
+ADMIN_PASSWORD="adminpassword"
 ```
 
-The app will use these values to connect to PostgreSQL, create the database if it does not exist, and initialize the tables.
-When using Docker, environment variables from docker-compose.yml take precedence.
-
-You should also specify the credentials for the root Admin user: 
-```env
-# First admin account credentials
-ADMIN_EMAIL=admin@war-simulation.com
-ADMIN_PASSWORD=adminpassword
-```
+The app will use these values to connect to PostgreSQL, create the database if it does not exist, initialize the tables and the credentials for the root Admin user: 
 
 ### 4. Install Dependencies
 
@@ -110,83 +198,42 @@ npm run serve
 - For production, use strong passwords.
 
 
+## Sumary of relationships
 
+- **User** owns one or many **Armies**.
 
-## Docker Setup
+- **Army** is composed of multiple **ArmyUnits**.
 
-This project uses **Docker** and **Docker Compose** to run both the PostgreSQL database, Redis and the Node.js application.
+- **ArmyUnit** references a specific **UnitType** and stores its quantity.
 
-### 1. Prerequisites
+- **UnitType** defines the characteristics (health, strength, defense, cost) of a type of unit (infantry, artillery, tank).
 
-Make sure the following are installed on your system:
+- **UnitEffectiveness** defines how one **UnitType** performs against another.
 
-- [Docker](https://www.docker.com/get-started)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+- **Battle** is fought between multiple Armies through the **BattleArmy** join entity.
 
----
+- **BattleArmy** links an **Army** to a **Battle**, assigns a **Strategy**, and records role (attacker/defender), outcome, and casualties.
 
-### 2. Environment Variables
+- **Strategy** provides offensive and defensive bonuses that affect a **BattleArmy**.
 
-The application requires certain environment variables to run. These are set directly in `docker-compose.yml`:
+### The relationships are as follows
 
-```yaml
-# Database service
-POSTGRES_USER: warsimuser
-POSTGRES_PASSWORD: mypassword
-POSTGRES_DB: warsimapp
+**User** → **Army** (one-to-many)
 
-# App service
-DB_USER: warsimuser
-DB_PASSWORD: mypassword
-DB_NAME: warsimapp
-DB_HOST: db
-DB_PORT: 5432
-ADMIN_EMAIL: admin@war-simulation.com
-ADMIN_PASSWORD: adminpassword
-```
-You should change the credentials for security, always keeping `USER`, `PASSWORD`, `DB NAME` the same across both services.
+**Army** → **ArmyUnit** (one-to-many)
 
-### 3. Build and Start Containers
+**ArmyUnit** → **UnitType** (many-to-one)
 
-From the project root, run:
+**UnitType** → **UnitEffectiveness** (self-referencing many-to-many)
 
-```bash
-docker-compose up --build
-```
+**Battle** → **BattleArmy** (one-to-many)
 
-This command will:
+**Army** → **BattleArmy** (one-to-many)
 
-&nbsp;&nbsp;&nbsp;**1.** Pull required images (node:22-slim for the app, postgres:16 for the database).
+**Strategy** → **BattleArmy** (one-to-many)
 
-&nbsp;&nbsp;&nbsp;**2.** Build your Node.js application container.
+**BattleArmy** → **Battle** (many-to-one)
 
-&nbsp;&nbsp;&nbsp;**3.** Start both the db and app services.
+**BattleArmy** → **Army** (many-to-one)
 
-&nbsp;&nbsp;&nbsp;**4.** Wait for the database to pass the healthcheck before starting the app.
-
-### 4. Stop Containers
-
-To stop and remove the running containers while keeping database data:
-
-```bash
-docker-compose down
-```
-
-The PostgreSQL data is persisted in the db_data volume, so it is safe to restart.
-
-### 5. Rebuild Without Cache
-
-If you need to rebuild the images from scratch:
-
-```bash
-docker-compose build --no-cache
-docker-compose up
-```
-
-### 6. Notes & Tips
-
-- The database initialization script init.sql is automatically executed on first container startup.
-- The app requires ADMIN_EMAIL and ADMIN_PASSWORD to create the first admin user.
-- The db service includes a healthcheck to ensure the database is ready before the app starts.
-- Docker volumes:
-&nbsp;&nbsp;&nbsp;db_data → persists PostgreSQL data between container restarts.
+**BattleArmy** → **Strategy** (many-to-one)
