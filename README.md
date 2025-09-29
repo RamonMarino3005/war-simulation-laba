@@ -24,9 +24,7 @@ This API provides all the endpoints necessary to manage, control, and analyze la
 - Create and manage armies, soldiers, and weaponry.
 - Configure combat parameters and strategies.
 - Simulate battles and retrieve detailed results.
-
-ERD Diagram:
-![ERD DIAGRAM](./docs/ERD_warSim.png)
+  
 
 ## Setup
 ## Docker Setup
