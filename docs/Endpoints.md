@@ -16,8 +16,6 @@
 |--------|----------------|-------------------------------------------|--------------------------|-----------------------------------|----------------|
 | GET    | /users         | Returns a list of all users               | 200                      | 404                               |      Yes       |
 | GET    | /users/:id     | Returns details about a specific user     | 200                      | 401 if unauthenticated.  Else 400 |      No        |
-| POST   | /users         | Creates a new user                        | 201                      | 404                               |      No        |
-| PUT    | /users/:id     | Updates an existing user                  | 201                      | 400 if incorrect params. Else 404 |      No        |
 | DELETE | /users/:id     | Deletes an existing user                  | 200                      | 200                               |      Yes       |
 <br>
 
