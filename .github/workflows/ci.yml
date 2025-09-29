@@ -53,13 +53,6 @@ jobs:
             sleep 2
           done
 
-      - name: Wait for Redis to be ready
-        run: |
-          until redis-cli -h localhost ping | grep PONG; do
-            echo "Waiting for Redis..."
-            sleep 2
-          done
-
       - name: Run lint
         run: npm run lint
 
