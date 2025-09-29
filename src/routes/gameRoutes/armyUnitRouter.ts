@@ -26,11 +26,7 @@ export const createArmyUnitRouter = (
   const validateUnitIdParam = checkNumericParam("unitId");
   const validateUUIDforArmyId = validateUUIDParam("armyId");
 
-  router.get(
-    "/:armyId/units",
-    validateUUIDforArmyId,
-    armyController.getUnitsInArmy
-  );
+  router.get("/:armyId", validateUUIDforArmyId, armyController.getUnitsInArmy);
 
   router.get(
     "/:armyId/units/:unitId",
@@ -42,7 +38,7 @@ export const createArmyUnitRouter = (
   router.use(extractToken, getSession);
 
   router.put(
-    "/:armyId/update-unit/:unitId",
+    "/:armyId/update/:unitId",
     validateUUIDforArmyId,
     validateUnitIdParam,
     validateUpdateBody,
