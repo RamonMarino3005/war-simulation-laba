@@ -115,7 +115,7 @@ export class BattleController {
       if (!result) {
         return res.status(404).json({ error: "Battle not found" });
       }
-      res.status(204).send({
+      res.status(200).send({
         status: "success",
         message: "Battle deleted successfully",
       });

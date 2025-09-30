@@ -105,7 +105,7 @@ export class StrategyController {
       if (!result) {
         return res.status(404).json({ error: "Strategy not found" });
       }
-      res.status(204).send({
+      res.status(200).send({
         status: "success",
         message: "Strategy deleted successfully",
       });

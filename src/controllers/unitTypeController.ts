@@ -114,7 +114,9 @@ export class UnitTypeController {
       if (!result) {
         return res.status(404).json({ error: "Unit Type not found" });
       }
-      res.status(204).send({
+      console.log("Deletion Result:", result);
+
+      res.status(200).json({
         status: "success",
         message: "Unit Type deleted successfully",
       });
