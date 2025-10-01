@@ -153,7 +153,10 @@ describe("ArmyController", () => {
 
     expect(armyServiceMock.deleteArmy).toHaveBeenCalledWith("myUser", "1");
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith(true);
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Army deleted successfully",
+      status: "success",
+    });
   });
 
   it("deleteArmy - error", async () => {
